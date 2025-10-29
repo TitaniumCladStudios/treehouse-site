@@ -1,38 +1,21 @@
-# sv
+# Hyperspace CMS
+They're jumping to lightspeed!
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Hyperspace CMS is a simple to use, embedded CMS that is meant to be deployed to a single hosting platform such as Netlify or Vercel. The project serves as a template that can be cloned so that custom frontend components can be built using Sveltkit, while the endpoints already exist to fetch custom CMS data that is created via the admin interface. Think of it as a headful CMS like WordPress, but the content is stored in JSON files in the project itself and versioned via GIT.
 
-## Creating a project
+## But Why?
+I didn't want to host a database, and most of my smaller clients don't need anything larger than this. I needed something minimal in terms of admin functionality that they could log into to edit content, and I wanted to enjoy cheap, single service hosting on Netlify.But
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Doesn't this Exist
+Not in my preferred stack of Sveltekit. TinaCMS got close, but configuring it to work with Sveltekit can be a headache, and you can't host it on Netlify. All the endpoints on this project are on netlify as cloud functions, and the frontend is a built static site. It's quite simple.But
 
-```sh
-# create a new project in the current directory
-npx sv create
+## What's the full stack?
+Good question. Several pieces of tech went into this, most of which I chose to get better at using:
 
-# create a new project in my-app
-npx sv create my-app
-```
+- Sveltekit
+- Typescript
+- Tailwind
+- Storybook
+- The github API for production updates
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+If I add any more or think of any more, I'll add them here.
