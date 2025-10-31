@@ -4,7 +4,6 @@
   import { Label } from '$lib/components/ui/label';
   import * as Card from '$lib/components/ui/card';
 
-  let email = '';
   let password = '';
   let isLoading = false;
   let error = '';
@@ -15,19 +14,17 @@
     isLoading = true;
 
     try {
-      // TODO: Implement authentication logic here
-      // This will be connected to the auth API endpoint
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ password })
       });
 
       if (!response.ok) {
         const data = await response.json();
-        error = data.message || 'Login failed';
+        error = data.error || 'Login failed';
         return;
       }
 
@@ -60,30 +57,17 @@
       <Card.Header>
         <Card.Title class="text-2xl">Sign in</Card.Title>
         <Card.Description>
-          Enter your credentials to access the admin panel
+          Enter your admin password to access the admin panel
         </Card.Description>
       </Card.Header>
       <Card.Content>
         <form on:submit={handleSubmit} class="space-y-4">
           <div class="space-y-2">
-            <Label for="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="admin@example.com"
-              bind:value={email}
-              required
-              disabled={isLoading}
-              class="w-full"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <Label for="password">Password</Label>
+            <Label for="password">Admin Password</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Enter your admin password"
               bind:value={password}
               required
               disabled={isLoading}

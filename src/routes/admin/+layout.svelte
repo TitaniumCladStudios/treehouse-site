@@ -24,6 +24,20 @@
 			icon: Settings
 		}
 	];
+
+	async function handleLogout() {
+		try {
+			const response = await fetch('/api/auth/logout', {
+				method: 'POST'
+			});
+
+			if (response.ok) {
+				window.location.href = '/admin/login';
+			}
+		} catch (error) {
+			console.error('Logout error:', error);
+		}
+	}
 </script>
 
 <Sidebar.Provider>
@@ -88,7 +102,7 @@
 				</h1>
 
 				<div class="flex items-center gap-4">
-					<Button variant="outline" size="sm" href="/admin/login">Sign Out</Button>
+					<Button variant="outline" size="sm" onclick={handleLogout}>Sign Out</Button>
 				</div>
 			</div>
 		</header>

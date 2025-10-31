@@ -351,12 +351,14 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Create login form at `/admin/login`
 - [x] Design responsive login UI with shadcn-svelte (Card, Input, Label, Button)
 - [x] Set up login route to bypass admin layout
-- [ ] Implement password hashing with bcrypt
-- [ ] Set up session management via HTTP-only cookies
-- [ ] Create auth guard using SvelteKit hooks (`src/hooks.server.ts`)
-- [ ] Protect all `/admin/*` routes (except login)
-- [ ] Create `/api/auth/login` endpoint
-- [ ] Create `/api/auth/logout` endpoint
+- [x] Implement password hashing with bcrypt
+- [x] Set up session management via HTTP-only cookies
+- [x] Create auth guard using SvelteKit hooks (`src/hooks.server.ts`)
+- [x] Protect all `/admin/*` routes (except login)
+- [x] Create `/api/auth/login` endpoint
+- [x] Create `/api/auth/logout` endpoint
+- [x] Create password hash generator script (`scripts/hash-password.js`)
+- [x] Set up environment variables for admin password and session secret
 
 #### Admin Interface - Core Structure
 - [x] Create admin layout with sidebar (`/admin/+layout.svelte`)
@@ -475,4 +477,4 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 
 ---
 
-**Last Updated:** 2025-10-30
+**Last Updated:** 2025-10-31
