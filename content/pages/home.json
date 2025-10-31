@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "slug": "home",
+    "title": "Home Page",
+    "createdAt": "2025-10-31T00:00:00.000Z",
+    "updatedAt": "2025-10-31T00:00:00.000Z"
+  },
+  "fields": [
+    {
+      "id": "hero_title",
+      "label": "Hero Title",
+      "type": "shortText",
+      "value": "Welcome to Hyperspace CMS"
+    },
+    {
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "type": "shortText",
+      "value": "A Git-based content management system built with SvelteKit"
+    },
+    {
+      "id": "hero_description",
+      "label": "Hero Description",
+      "type": "longText",
+      "value": "Manage your website content with ease. All changes are versioned with Git, giving you complete control and history of your content updates."
+    },
+    {
+      "id": "hero_image",
+      "label": "Hero Image",
+      "type": "image",
+      "value": "/uploads/hero-placeholder.jpg"
+    },
+    {
+      "id": "about_heading",
+      "label": "About Section Heading",
+      "type": "shortText",
+      "value": "Why Choose Hyperspace?"
+    },
+    {
+      "id": "about_text",
+      "label": "About Section Text",
+      "type": "longText",
+      "value": "Hyperspace CMS combines the simplicity of flat-file content management with the power of Git version control. No database required, just JSON files that live alongside your code."
+    }
+  ]
+}

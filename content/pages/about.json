@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "slug": "about",
+    "title": "About Us",
+    "createdAt": "2025-10-31T00:00:00.000Z",
+    "updatedAt": "2025-10-31T00:00:00.000Z"
+  },
+  "fields": [
+    {
+      "id": "page_title",
+      "label": "Page Title",
+      "type": "shortText",
+      "value": "About Our Company"
+    },
+    {
+      "id": "introduction",
+      "label": "Introduction",
+      "type": "longText",
+      "value": "We are a team dedicated to building simple, effective content management solutions for modern web applications."
+    },
+    {
+      "id": "mission_heading",
+      "label": "Mission Heading",
+      "type": "shortText",
+      "value": "Our Mission"
+    },
+    {
+      "id": "mission_text",
+      "label": "Mission Statement",
+      "type": "longText",
+      "value": "To empower developers and content creators with tools that are simple to use, easy to deploy, and built on standards like Git that everyone understands."
+    },
+    {
+      "id": "team_photo",
+      "label": "Team Photo",
+      "type": "image",
+      "value": "/uploads/team-placeholder.jpg"
+    }
+  ]
+}
