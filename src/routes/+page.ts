@@ -1,15 +1,15 @@
 import type { PageLoad } from './$types';
-import type { PageContent } from '$lib/types/content';
+import type { ExpandedPageContent } from '$lib/server/content-expander';
 
 export const load: PageLoad = async ({ fetch }) => {
 	try {
-		const response = await fetch('/api/content/pages/home');
+		const response = await fetch('/api/content/pages/home/expanded');
 
 		if (!response.ok) {
 			throw new Error('Failed to load home page');
 		}
 
-		const pageData: PageContent = await response.json();
+		const pageData: ExpandedPageContent = await response.json();
 
 		return {
 			pageData

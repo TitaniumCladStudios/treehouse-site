@@ -1,0 +1,11 @@
+{
+  "id": "item_1761931391440",
+  "schemaSlug": "features",
+  "title": "Versioned via Git",
+  "fields": {
+    "field_1761931207095": "Versioned via Git",
+    "field_1761931234806": "Versioned on Github via the Github API, giving full content rollback functionality out of the box."
+  },
+  "createdAt": "2025-10-31T17:23:11.440Z",
+  "updatedAt": "2025-10-31T17:23:11.440Z"
+}

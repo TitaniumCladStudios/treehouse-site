@@ -4,12 +4,12 @@
 	import * as Sidebar from '$lib/components/ui/sidebar';
 	import { Button } from '$lib/components/ui/button';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { Home, FileText, Settings, Menu, ExternalLink, Image } from 'lucide-svelte';
+	import { Home, FileText, Settings, Menu, ExternalLink, Image, Layout, Folder } from 'lucide-svelte';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
-	// Menu items
-	const items = [
+	// Static menu items
+	const staticItems = [
 		{
 			title: 'Home',
 			url: '/admin',
@@ -20,6 +20,24 @@
 			url: '/admin/pages',
 			icon: FileText
 		},
+		{
+			title: 'Content Types',
+			url: '/admin/content-types',
+			icon: Layout
+		}
+	];
+
+	// Dynamic content schema items
+	const contentItems = $derived(
+		data.schemas.map((schema) => ({
+			title: schema.name,
+			url: `/admin/content/${schema.slug}`,
+			icon: Folder
+		}))
+	);
+
+	// Bottom menu items
+	const bottomItems = [
 		{
 			title: 'Media',
 			url: '/admin/media',
@@ -57,10 +75,54 @@
 				</div>
 			</Sidebar.Header>
 
+			<!-- Static Menu Items -->
 			<Sidebar.Group>
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
-						{#each items as item (item.title)}
+						{#each staticItems as item (item.title)}
+							<Sidebar.MenuItem>
+								<Sidebar.MenuButton>
+									{#snippet child({ props })}
+										<a href={item.url} {...props}>
+											<item.icon class="h-4 w-4" />
+											<span>{item.title}</span>
+										</a>
+									{/snippet}
+								</Sidebar.MenuButton>
+							</Sidebar.MenuItem>
+						{/each}
+					</Sidebar.Menu>
+				</Sidebar.GroupContent>
+			</Sidebar.Group>
+
+			<!-- Dynamic Content Items -->
+			{#if contentItems.length > 0}
+				<Sidebar.Group>
+					<Sidebar.GroupLabel>Content</Sidebar.GroupLabel>
+					<Sidebar.GroupContent>
+						<Sidebar.Menu>
+							{#each contentItems as item (item.url)}
+								<Sidebar.MenuItem>
+									<Sidebar.MenuButton>
+										{#snippet child({ props })}
+											<a href={item.url} {...props}>
+												<item.icon class="h-4 w-4" />
+												<span>{item.title}</span>
+											</a>
+										{/snippet}
+									</Sidebar.MenuButton>
+								</Sidebar.MenuItem>
+							{/each}
+						</Sidebar.Menu>
+					</Sidebar.GroupContent>
+				</Sidebar.Group>
+			{/if}
+
+			<!-- Bottom Menu Items -->
+			<Sidebar.Group>
+				<Sidebar.GroupContent>
+					<Sidebar.Menu>
+						{#each bottomItems as item (item.title)}
 							<Sidebar.MenuItem>
 								<Sidebar.MenuButton>
 									{#snippet child({ props })}
@@ -112,6 +174,10 @@
 						Dashboard
 					{:else if $page.url.pathname.startsWith('/admin/pages')}
 						Pages
+					{:else if $page.url.pathname.startsWith('/admin/content-types')}
+						Content Types
+					{:else if $page.url.pathname.startsWith('/admin/content')}
+						Content
 					{:else if $page.url.pathname.startsWith('/admin/media')}
 						Media
 					{:else if $page.url.pathname.startsWith('/admin/settings')}

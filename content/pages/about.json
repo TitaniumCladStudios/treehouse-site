@@ -3,7 +3,7 @@
     "slug": "about",
     "title": "About Us",
     "createdAt": "2025-10-31T14:45:00.000Z",
-    "updatedAt": "2025-10-31T14:45:00.000Z"
+    "updatedAt": "2025-10-31T17:32:42.197Z"
   },
   "fields": [
     {
@@ -41,6 +41,14 @@
       "label": "Features Description",
       "type": "longText",
       "value": "Git-based version control • No database required • Admin dashboard • Dynamic content fields • Image uploads • Real-time preview • TypeScript support • Built with SvelteKit"
+    },
+    {
+      "id": "field_1761931950009",
+      "label": "Features",
+      "type": "contentReference",
+      "value": "item_1761931340595,item_1761931391440,item_1761931439662,item_1761931528767",
+      "referenceSchema": "features",
+      "multiple": true
     }
   ]
 }

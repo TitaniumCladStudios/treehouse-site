@@ -1,29 +1,41 @@
 import type { LayoutLoad } from './$types';
-import type { SiteSettings } from '$lib/types/content';
+import type { SiteSettings, SchemaList } from '$lib/types/content';
 
 export const load: LayoutLoad = async ({ fetch }) => {
 	try {
-		const response = await fetch('/api/settings');
+		// Load settings and schemas in parallel
+		const [settingsResponse, schemasResponse] = await Promise.all([
+			fetch('/api/settings'),
+			fetch('/api/schemas')
+		]);
 
-		if (!response.ok) {
-			throw new Error('Failed to load settings');
-		}
+		const settings: SiteSettings = settingsResponse.ok
+			? await settingsResponse.json()
+			: {
+					siteName: 'Hyperspace CMS',
+					siteDescription: 'A Git-based content management system',
+					siteUrl: 'http://localhost:5173',
+					adminEmail: 'admin@example.com'
+				};
 
-		const settings: SiteSettings = await response.json();
+		const schemasData: SchemaList = schemasResponse.ok
+			? await schemasResponse.json()
+			: { schemas: [] };
 
 		return {
-			settings
+			settings,
+			schemas: schemasData.schemas
 		};
 	} catch (error) {
-		console.error('Error loading settings:', error);
-		// Return default settings if load fails
+		console.error('Error loading layout data:', error);
 		return {
 			settings: {
 				siteName: 'Hyperspace CMS',
 				siteDescription: 'A Git-based content management system',
 				siteUrl: 'http://localhost:5173',
 				adminEmail: 'admin@example.com'
-			}
+			},
+			schemas: []
 		};
 	}
 };

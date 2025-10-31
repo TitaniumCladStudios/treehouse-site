@@ -9,6 +9,9 @@
 	function getField(id: string) {
 		return data.pageData?.fields.find((f) => f.id === id)?.value || '';
 	}
+
+	// Get expanded features - uses the field label "Features" converted to slug "features"
+	const features = $derived(data.pageData?.expandedFields?.features || []);
 </script>
 
 <svelte:head>
@@ -64,6 +67,27 @@
 					</Card.Content>
 				</Card.Root>
 			</div>
+
+			<!-- Features Section -->
+			{#if Array.isArray(features) && features.length > 0}
+				<div class="mx-auto mt-16 max-w-6xl">
+					<h2 class="mb-8 text-center text-4xl font-bold">Features</h2>
+					<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+						{#each features as feature}
+							<Card.Root class="transition-shadow hover:shadow-lg">
+								<Card.Header>
+									<Card.Title>{feature.fields.feature_title}</Card.Title>
+								</Card.Header>
+								<Card.Content>
+									<p class="text-muted-foreground">
+										{feature.fields.feature_description}
+									</p>
+								</Card.Content>
+							</Card.Root>
+						{/each}
+					</div>
+				</div>
+			{/if}
 
 			<!-- Footer Info -->
 			<div class="mt-16 text-center text-sm text-muted-foreground">

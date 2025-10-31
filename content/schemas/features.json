@@ -1,0 +1,26 @@
+{
+  "slug": "features",
+  "name": "Features",
+  "description": "The features of the hyperspace cms",
+  "icon": "FileText",
+  "fields": [
+    {
+      "id": "field_1761931207095",
+      "label": "Feature Title",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Feature title that is shown for each feature card",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_1761931234806",
+      "label": "Feature Description",
+      "type": "longText",
+      "required": false,
+      "helpText": "The full text explaining what the feature is",
+      "defaultValue": ""
+    }
+  ],
+  "createdAt": "2025-10-31T17:20:56.815Z",
+  "updatedAt": "2025-10-31T17:20:56.815Z"
+}
