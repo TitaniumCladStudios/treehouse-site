@@ -59,6 +59,7 @@
     "vitest": "^4.0.4"
   },
   "dependencies": {
+    "lucide-svelte": "^0.548.0",
     "storybook": "^10.0.0"
   }
 }
