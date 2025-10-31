@@ -432,6 +432,9 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Validate MIME types (jpeg, jpg, png, gif, webp)
 - [x] Add uploads directory to `.gitignore`
 - [x] Create `.gitkeep` for uploads folder structure
+- [x] Install and integrate `sharp` for image optimization
+- [x] Automatic WebP conversion at 85% quality
+- [x] Effort level 6 for best compression
 - [ ] Commit uploaded images to git (pending GitHub integration)
 
 #### Image Management UI
@@ -444,10 +447,13 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Integrate image upload into content forms
 - [x] Toast notifications for upload success/errors
 - [x] Client-side validation (file type and size)
-- [ ] Create dedicated image library view
-- [ ] Add grid view with all uploaded images
-- [ ] Implement copy URL functionality
-- [ ] Add bulk delete image functionality
+- [x] Create dedicated image library view (`/admin/media`)
+- [x] Add grid view with all uploaded images
+- [x] Implement search/filter functionality
+- [x] Add upload dialog with drag-and-drop
+- [x] Add delete functionality with confirmation dialog
+- [x] Display image metadata (filename, size, date)
+- [x] Connect media stats to dashboard
 
 ### Additional Features Implemented
 
