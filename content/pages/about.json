@@ -2,21 +2,21 @@
   "metadata": {
     "slug": "about",
     "title": "About Us",
-    "createdAt": "2025-10-31T00:00:00.000Z",
-    "updatedAt": "2025-10-31T00:00:00.000Z"
+    "createdAt": "2025-10-31T14:45:00.000Z",
+    "updatedAt": "2025-10-31T14:45:00.000Z"
   },
   "fields": [
     {
       "id": "page_title",
       "label": "Page Title",
       "type": "shortText",
-      "value": "About Our Company"
+      "value": "About Hyperspace CMS"
     },
     {
-      "id": "introduction",
+      "id": "intro_text",
       "label": "Introduction",
       "type": "longText",
-      "value": "We are a team dedicated to building simple, effective content management solutions for modern web applications."
+      "value": "Hyperspace CMS is a modern content management system built for developers who want the flexibility of code with the convenience of a CMS. Every change is tracked in Git, making it perfect for teams who value version control."
     },
     {
       "id": "mission_heading",
@@ -28,13 +28,19 @@
       "id": "mission_text",
       "label": "Mission Statement",
       "type": "longText",
-      "value": "To empower developers and content creators with tools that are simple to use, easy to deploy, and built on standards like Git that everyone understands."
+      "value": "To provide developers with a powerful, flexible content management system that doesn't compromise on simplicity or control. We believe in keeping content close to code, version controlled, and easily deployable."
     },
     {
-      "id": "team_photo",
-      "label": "Team Photo",
-      "type": "image",
-      "value": "/uploads/team-placeholder.jpg"
+      "id": "features_heading",
+      "label": "Features Heading",
+      "type": "shortText",
+      "value": "Key Features"
+    },
+    {
+      "id": "features_list",
+      "label": "Features Description",
+      "type": "longText",
+      "value": "Git-based version control • No database required • Admin dashboard • Dynamic content fields • Image uploads • Real-time preview • TypeScript support • Built with SvelteKit"
     }
   ]
 }

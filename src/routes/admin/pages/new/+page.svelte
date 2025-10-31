@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button';
+	import * as Alert from '$lib/components/ui/alert';
 	import { ArrowLeft, Save, Loader2 } from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
 	import PageEditor from '$lib/components/admin/PageEditor.svelte';
 	import type { PageContent } from '$lib/types/content';
 
@@ -54,6 +56,9 @@
 				throw new Error(data.error || 'Failed to create page');
 			}
 
+			// Show success toast
+			toast.success('Page created successfully!');
+
 			// Redirect to pages list
 			goto('/admin/pages');
 		} catch (err) {
@@ -94,9 +99,10 @@
 
 	<!-- Error Message -->
 	{#if error}
-		<div class="rounded-lg border border-destructive bg-destructive/10 p-4">
-			<p class="text-sm text-destructive">{error}</p>
-		</div>
+		<Alert.Root variant="destructive">
+			<Alert.Title>Error</Alert.Title>
+			<Alert.Description>{error}</Alert.Description>
+		</Alert.Root>
 	{/if}
 
 	<!-- Page Editor -->

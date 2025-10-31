@@ -3,7 +3,9 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button';
+	import * as Alert from '$lib/components/ui/alert';
 	import { ArrowLeft, Save, Loader2 } from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
 	import PageEditor from '$lib/components/admin/PageEditor.svelte';
 	import type { PageContent } from '$lib/types/content';
 
@@ -64,8 +66,11 @@
 				throw new Error(data.error || 'Failed to update page');
 			}
 
-			// Reload to get updated timestamp
-			await loadPage();
+			// Update timestamp locally without reloading
+			pageData.metadata.updatedAt = new Date().toISOString();
+
+			// Show success toast
+			toast.success('Page saved successfully!');
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Failed to save page';
 			console.error('Error saving page:', err);
@@ -112,9 +117,10 @@
 
 	<!-- Error Message -->
 	{#if error}
-		<div class="rounded-lg border border-destructive bg-destructive/10 p-4">
-			<p class="text-sm text-destructive">{error}</p>
-		</div>
+		<Alert.Root variant="destructive">
+			<Alert.Title>Error</Alert.Title>
+			<Alert.Description>{error}</Alert.Description>
+		</Alert.Root>
 	{/if}
 
 	<!-- Loading State -->

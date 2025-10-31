@@ -5,11 +5,23 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
-	import { Plus, Trash2, GripVertical, Image as ImageIcon } from 'lucide-svelte';
+	import {
+		Plus,
+		Trash2,
+		GripVertical,
+		Image as ImageIcon,
+		Upload,
+		Loader2,
+		X
+	} from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
 	import type { PageContent, PageField, PageFieldType } from '$lib/types/content';
 
 	// Props
 	let { pageData, isNew = false }: { pageData: PageContent; isNew?: boolean } = $props();
+
+	// Track uploading state per field
+	let uploadingFields: Record<string, boolean> = $state({});
 
 	function addField() {
 		const newField: PageField = {
@@ -42,6 +54,71 @@
 				pageData.fields[index]
 			];
 			pageData.fields = [...pageData.fields];
+		}
+	}
+
+	async function uploadImage(fieldId: string, file: File) {
+		if (!file) return;
+
+		// Validate file type
+		const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+		if (!allowedTypes.includes(file.type)) {
+			toast.error('Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.');
+			return;
+		}
+
+		// Validate file size (max 5MB)
+		const maxSize = 5 * 1024 * 1024;
+		if (file.size > maxSize) {
+			toast.error('File size exceeds 5MB limit.');
+			return;
+		}
+
+		uploadingFields[fieldId] = true;
+
+		try {
+			const formData = new FormData();
+			formData.append('file', file);
+
+			const response = await fetch('/api/upload', {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!response.ok) {
+				const data = await response.json();
+				throw new Error(data.error || 'Failed to upload image');
+			}
+
+			const data = await response.json();
+
+			// Update field value with uploaded image URL
+			const field = pageData.fields.find((f) => f.id === fieldId);
+			if (field) {
+				field.value = data.url;
+			}
+
+			toast.success('Image uploaded successfully!');
+		} catch (error) {
+			console.error('Error uploading image:', error);
+			toast.error(error instanceof Error ? error.message : 'Failed to upload image');
+		} finally {
+			uploadingFields[fieldId] = false;
+		}
+	}
+
+	function handleFileSelect(fieldId: string, event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
+		if (file) {
+			uploadImage(fieldId, file);
+		}
+	}
+
+	function clearImage(fieldId: string) {
+		const field = pageData.fields.find((f) => f.id === fieldId);
+		if (field) {
+			field.value = '';
 		}
 	}
 </script>
@@ -164,18 +241,66 @@
 											bind:value={field.value}
 											rows={4}
 										/>
+									{:else if field.type === 'image'}
+										<div class="space-y-3">
+											<!-- Image Preview -->
+											{#if field.value}
+												<div class="relative inline-block">
+													<img
+														src={field.value}
+														alt="Preview"
+														class="max-w-full h-auto max-h-48 rounded-lg border"
+													/>
+													<Button
+														variant="destructive"
+														size="icon"
+														class="absolute top-2 right-2 h-6 w-6"
+														onclick={() => clearImage(field.id)}
+													>
+														<X class="h-3 w-3" />
+													</Button>
+												</div>
+											{/if}
+
+											<!-- File Upload -->
+											<div class="flex gap-2">
+												<Input
+													id="upload-{field.id}"
+													type="file"
+													accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+													onchange={(e) => handleFileSelect(field.id, e)}
+													disabled={uploadingFields[field.id]}
+													class="flex-1"
+												/>
+												{#if uploadingFields[field.id]}
+													<Button disabled size="sm">
+														<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+														Uploading...
+													</Button>
+												{/if}
+											</div>
+
+											<!-- Manual URL Input -->
+											<div class="space-y-1">
+												<Label for="url-{field.id}" class="text-xs text-muted-foreground"
+													>Or enter image URL manually:</Label
+												>
+												<Input
+													id="url-{field.id}"
+													type="text"
+													placeholder="/uploads/image.jpg"
+													bind:value={field.value}
+													disabled={uploadingFields[field.id]}
+												/>
+											</div>
+										</div>
 									{:else}
 										<Input
 											id="value-{field.id}"
 											type="text"
-											placeholder={field.type === 'image' ? '/uploads/image.jpg' : 'Enter content...'}
+											placeholder="Enter content..."
 											bind:value={field.value}
 										/>
-									{/if}
-									{#if field.type === 'image'}
-										<p class="text-xs text-muted-foreground">
-											Enter the image path (e.g., /uploads/image.jpg)
-										</p>
 									{/if}
 								</div>
 							</div>

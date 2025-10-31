@@ -55,3 +55,17 @@ export interface PageList {
 		updatedAt: string;
 	}[];
 }
+
+/**
+ * Site settings
+ */
+export interface SiteSettings {
+	/** Site name/title */
+	siteName: string;
+	/** Site description */
+	siteDescription: string;
+	/** Site URL (used for links to live site) */
+	siteUrl: string;
+	/** Admin email */
+	adminEmail: string;
+}

@@ -370,6 +370,8 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Add quick actions panel
 - [x] Create pages management UI (`/admin/pages/+page.svelte`)
 - [x] Create settings UI (`/admin/settings/+page.svelte`)
+- [x] Add sonner toast notifications throughout admin
+- [x] Add "View Live Site" link in sidebar footer
 
 #### Theme & Appearance
 - [x] Add light/dark mode toggle
@@ -378,19 +380,22 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Apply theme across all admin pages
 
 #### Content Directory Structure
-- [ ] Create `/content` directory for JSON files
-- [ ] Define JSON schemas for different content types
-- [ ] Set up TypeScript types for content models
+- [x] Create `/content` directory for JSON files
+- [x] Create `/content/pages` directory for page content
+- [x] Set up TypeScript types for content models (`PageContent`, `PageField`, `PageMetadata`)
+- [x] Create demo content files (home.json, about.json)
 
 ### Phase 2: Content Management
 
 #### API Endpoints for Content
-- [ ] Create `/api/content` GET endpoint (read content files)
-- [ ] Create `/api/content` POST endpoint (create new content)
-- [ ] Create `/api/content` PUT endpoint (update content)
-- [ ] Create `/api/content` DELETE endpoint (remove content)
-- [ ] Implement JSON schema validation
-- [ ] Add error handling for content operations
+- [x] Create `/api/content/pages` GET endpoint (list all pages)
+- [x] Create `/api/content/pages` POST endpoint (create new page)
+- [x] Create `/api/content/pages/[slug]` GET endpoint (read single page)
+- [x] Create `/api/content/pages/[slug]` PUT endpoint (update page)
+- [x] Create `/api/content/pages/[slug]` DELETE endpoint (delete page)
+- [x] Create server-side content management functions (`loadPage`, `savePage`, `listPages`, `deletePage`)
+- [x] Add error handling for content operations
+- [x] Validate required fields (title, slug)
 
 #### GitHub API Integration
 - [ ] Install and configure Octokit
@@ -401,44 +406,76 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [ ] Test commit workflow to GitHub
 
 #### Admin UI - Content Editor
-- [ ] Create content list view
-- [ ] Build create/edit forms based on schemas
+- [x] Create pages list view with stats (`/admin/pages`)
+- [x] Build dynamic PageEditor component with field management
+- [x] Support multiple field types (shortText, longText, image)
+- [x] Add field reordering functionality (move up/down)
+- [x] Add/remove fields dynamically
+- [x] Create new page form (`/admin/pages/new`)
+- [x] Create edit page form (`/admin/pages/[slug]`)
+- [x] Connect forms to content API
+- [x] Add save functionality with toast notifications
+- [x] Add validation and error messages
+- [x] Slug generation and validation
 - [ ] Add commit message input field
-- [ ] Connect forms to content API
-- [ ] Add save functionality with git commit
 - [ ] Implement content preview
-- [ ] Add validation and error messages
 
 ### Phase 3: Image Handling
 
 #### Image Upload System
-- [ ] Create `/api/images` POST endpoint
-- [ ] Handle multipart form data
-- [ ] Store images in `/static/uploads`
-- [ ] Generate unique filenames (timestamp + hash)
-- [ ] Return public URLs for uploaded images
-- [ ] Commit uploaded images to git
-- [ ] Add file size limits (5MB)
-- [ ] Validate MIME types (jpg, png, webp, svg)
+- [x] Create `/api/upload` POST endpoint
+- [x] Handle multipart form data
+- [x] Store images in `/static/uploads`
+- [x] Generate unique filenames (timestamp + sanitized name)
+- [x] Return public URLs for uploaded images
+- [x] Add file size limits (5MB)
+- [x] Validate MIME types (jpeg, jpg, png, gif, webp)
+- [x] Add uploads directory to `.gitignore`
+- [x] Create `.gitkeep` for uploads folder structure
+- [ ] Commit uploaded images to git (pending GitHub integration)
 
 #### Image Management UI
-- [ ] Create image upload widget
-- [ ] Add image picker component
-- [ ] Display thumbnail previews
-- [ ] Create image library view
-- [ ] Add grid view with thumbnails
+- [x] Create image upload widget in PageEditor
+- [x] Display image thumbnail previews
+- [x] Add file input with accept filter
+- [x] Show upload progress with loading state
+- [x] Add clear/remove image button
+- [x] Manual URL input option
+- [x] Integrate image upload into content forms
+- [x] Toast notifications for upload success/errors
+- [x] Client-side validation (file type and size)
+- [ ] Create dedicated image library view
+- [ ] Add grid view with all uploaded images
 - [ ] Implement copy URL functionality
-- [ ] Add delete image functionality
-- [ ] Integrate image picker into content forms
+- [ ] Add bulk delete image functionality
+
+### Additional Features Implemented
+
+#### Settings System
+- [x] Create `SiteSettings` TypeScript interface
+- [x] Create `/content/settings.json` file
+- [x] Create `/api/settings` GET endpoint (read settings)
+- [x] Create `/api/settings` PUT endpoint (update settings)
+- [x] Create settings page in admin (`/admin/settings`)
+- [x] Add settings form with validation
+- [x] Integrate settings into admin layout
+- [x] Use settings for "View Live Site" link
+- [x] Settings fields: siteName, siteDescription, siteUrl, adminEmail
+- [x] Auto-reload after settings save
 
 ### Phase 4: Public Site & Deployment
 
 #### Public-Facing Pages
-- [ ] Create dynamic routes for content
-- [ ] Implement SSR for SEO
-- [ ] Fetch content from JSON files
-- [ ] Style public pages
-- [ ] Add error handling (404, etc.)
+- [x] Create home page route (`/+page.svelte`)
+- [x] Create about page route (`/about/+page.svelte`)
+- [x] Implement SSR with page loaders (`+page.ts`)
+- [x] Fetch content from content API
+- [x] Style public pages with shadcn-svelte components
+- [x] Add gradient backgrounds and responsive design
+- [x] Add error handling for failed content loads
+- [x] Add navigation between pages
+- [x] Add links back to admin dashboard
+- [x] Helper functions to access field values by ID
 
 #### Preview Functionality
 - [ ] Add preview mode in admin
@@ -476,5 +513,29 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [ ] Document git workflow
 
 ---
+
+## Current Status Summary
+
+### ✅ Completed Features
+- Full authentication system with login/logout
+- Admin dashboard with statistics and quick actions
+- Page content management (create, read, update, delete)
+- Dynamic field editor with multiple field types
+- Image upload with preview and validation
+- Public-facing pages (home and about) pulling from CMS
+- Settings management system
+- Toast notifications for user feedback
+- Light/dark theme support
+- Responsive design throughout
+
+### 🚧 In Progress
+- None currently
+
+### 📋 Next Priorities
+1. GitHub API integration for automatic commits
+2. Content preview functionality
+3. Dedicated image library page
+4. Netlify deployment configuration
+5. Documentation and testing
 
 **Last Updated:** 2025-10-31

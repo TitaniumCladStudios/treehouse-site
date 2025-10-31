@@ -1,10 +1,12 @@
 <script lang="ts">
+	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
 	import * as Sidebar from '$lib/components/ui/sidebar';
 	import { Button } from '$lib/components/ui/button';
-	import { Home, FileText, Settings, Menu } from 'lucide-svelte';
+	import { Toaster } from '$lib/components/ui/sonner';
+	import { Home, FileText, Settings, Menu, ExternalLink } from 'lucide-svelte';
 
-	let { children } = $props();
+	let { children, data }: { children: any; data: LayoutData } = $props();
 
 	// Menu items
 	const items = [
@@ -70,7 +72,18 @@
 			</Sidebar.Group>
 
 			<Sidebar.Footer>
-				<div class="px-4 py-2">
+				<div class="space-y-2 px-4 py-2">
+					<Button
+						href={data.settings.siteUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						variant="outline"
+						size="sm"
+						class="w-full justify-start"
+					>
+						<ExternalLink class="mr-2 h-4 w-4" />
+						View Live Site
+					</Button>
 					<p class="text-xs text-muted-foreground">v0.0.1</p>
 				</div>
 			</Sidebar.Footer>
@@ -112,6 +125,8 @@
 		</main>
 	</Sidebar.Inset>
 </Sidebar.Provider>
+
+<Toaster />
 
 <style>
 	:global(body) {

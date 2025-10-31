@@ -3,7 +3,7 @@
     "slug": "home",
     "title": "Home Page",
     "createdAt": "2025-10-31T00:00:00.000Z",
-    "updatedAt": "2025-10-31T00:00:00.000Z"
+    "updatedAt": "2025-10-31T14:48:35.921Z"
   },
   "fields": [
     {
@@ -22,13 +22,13 @@
       "id": "hero_description",
       "label": "Hero Description",
       "type": "longText",
-      "value": "Manage your website content with ease. All changes are versioned with Git, giving you complete control and history of your content updates."
+      "value": "Manage your website content with ease. All changes are versioned with Git, giving you complete control and history of your content updates. This page was just edited in real time!!"
     },
     {
       "id": "hero_image",
       "label": "Hero Image",
       "type": "image",
-      "value": "/uploads/hero-placeholder.jpg"
+      "value": "/uploads/1761922110327_ChatGPT_Image_Oct_31__2025__10_48_04_AM.png"
     },
     {
       "id": "about_heading",
@@ -40,7 +40,7 @@
       "id": "about_text",
       "label": "About Section Text",
       "type": "longText",
-      "value": "Hyperspace CMS combines the simplicity of flat-file content management with the power of Git version control. No database required, just JSON files that live alongside your code."
+      "value": "Hyperspace CMS combines the simplicity of flat-file content management with the power of Git version control. No database required, just JSON files that live alongside your code. And this section has been edited! And it has been edited again!"
     }
   ]
 }
