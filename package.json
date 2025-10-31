@@ -64,6 +64,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "lucide-svelte": "^0.548.0",
+    "sharp": "^0.34.4",
     "storybook": "^10.0.0"
   }
 }

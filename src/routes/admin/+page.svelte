@@ -5,11 +5,19 @@
 	import { FileText, Image, GitCommit, Clock, Plus, FolderOpen, Loader2 } from 'lucide-svelte';
 	import type { PageList } from '$lib/types/content';
 
+	interface MediaFile {
+		filename: string;
+		url: string;
+		size: number;
+		createdAt: string;
+	}
+
 	let pages: PageList['pages'] = [];
+	let mediaFiles: MediaFile[] = [];
 	let loading = true;
 
 	onMount(async () => {
-		await loadPages();
+		await Promise.all([loadPages(), loadMedia()]);
 	});
 
 	async function loadPages() {
@@ -21,9 +29,31 @@
 			}
 		} catch (err) {
 			console.error('Error loading pages:', err);
+		}
+	}
+
+	async function loadMedia() {
+		try {
+			const response = await fetch('/api/media');
+			if (response.ok) {
+				const data = await response.json();
+				mediaFiles = data.files;
+			}
+		} catch (err) {
+			console.error('Error loading media:', err);
 		} finally {
 			loading = false;
 		}
+	}
+
+	function formatMediaSize(bytes: number): string {
+		if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+		return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+	}
+
+	function getTotalMediaSize(): string {
+		const totalBytes = mediaFiles.reduce((acc, file) => acc + file.size, 0);
+		return formatMediaSize(totalBytes);
 	}
 
 	function getLastUpdated(): string {
@@ -93,8 +123,14 @@
 				<Image class="h-4 w-4 text-muted-foreground" />
 			</Card.Header>
 			<Card.Content>
-				<div class="text-2xl font-bold">0</div>
-				<p class="text-xs text-muted-foreground">Coming soon</p>
+				{#if loading}
+					<Loader2 class="h-6 w-6 animate-spin text-muted-foreground" />
+				{:else}
+					<div class="text-2xl font-bold">{mediaFiles.length}</div>
+					<p class="text-xs text-muted-foreground">
+						{mediaFiles.length > 0 ? getTotalMediaSize() : 'No images yet'}
+					</p>
+				{/if}
 			</Card.Content>
 		</Card.Root>
 
@@ -190,9 +226,9 @@
 					<FolderOpen class="mr-2 h-4 w-4" />
 					Browse All Pages
 				</Button>
-				<Button class="w-full justify-start" variant="outline" href="/admin/pages">
+				<Button class="w-full justify-start" variant="outline" href="/admin/media">
 					<Image class="mr-2 h-4 w-4" />
-					Upload Images
+					Media Library
 				</Button>
 				<Button class="w-full justify-start" variant="outline" href="/admin/settings">
 					<GitCommit class="mr-2 h-4 w-4" />

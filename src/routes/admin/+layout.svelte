@@ -4,7 +4,7 @@
 	import * as Sidebar from '$lib/components/ui/sidebar';
 	import { Button } from '$lib/components/ui/button';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { Home, FileText, Settings, Menu, ExternalLink } from 'lucide-svelte';
+	import { Home, FileText, Settings, Menu, ExternalLink, Image } from 'lucide-svelte';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
@@ -19,6 +19,11 @@
 			title: 'Pages',
 			url: '/admin/pages',
 			icon: FileText
+		},
+		{
+			title: 'Media',
+			url: '/admin/media',
+			icon: Image
 		},
 		{
 			title: 'Settings',
@@ -107,6 +112,8 @@
 						Dashboard
 					{:else if $page.url.pathname.startsWith('/admin/pages')}
 						Pages
+					{:else if $page.url.pathname.startsWith('/admin/media')}
+						Media
 					{:else if $page.url.pathname.startsWith('/admin/settings')}
 						Settings
 					{:else}

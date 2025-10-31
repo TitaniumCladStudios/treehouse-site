@@ -3,7 +3,7 @@
     "slug": "home",
     "title": "Home Page",
     "createdAt": "2025-10-31T00:00:00.000Z",
-    "updatedAt": "2025-10-31T14:48:35.921Z"
+    "updatedAt": "2025-10-31T17:04:23.481Z"
   },
   "fields": [
     {
@@ -28,7 +28,7 @@
       "id": "hero_image",
       "label": "Hero Image",
       "type": "image",
-      "value": "/uploads/1761922110327_ChatGPT_Image_Oct_31__2025__10_48_04_AM.png"
+      "value": "/uploads/1761930258397_ChatGPT_Image_Oct_31__2025__10_48_04_AM.webp"
     },
     {
       "id": "about_heading",

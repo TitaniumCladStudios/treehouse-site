@@ -263,21 +263,26 @@
 											{/if}
 
 											<!-- File Upload -->
-											<div class="flex gap-2">
-												<Input
-													id="upload-{field.id}"
-													type="file"
-													accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-													onchange={(e) => handleFileSelect(field.id, e)}
-													disabled={uploadingFields[field.id]}
-													class="flex-1"
-												/>
-												{#if uploadingFields[field.id]}
-													<Button disabled size="sm">
-														<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-														Uploading...
-													</Button>
-												{/if}
+											<div class="space-y-1">
+												<div class="flex gap-2">
+													<Input
+														id="upload-{field.id}"
+														type="file"
+														accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+														onchange={(e) => handleFileSelect(field.id, e)}
+														disabled={uploadingFields[field.id]}
+														class="flex-1"
+													/>
+													{#if uploadingFields[field.id]}
+														<Button disabled size="sm">
+															<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+															Uploading...
+														</Button>
+													{/if}
+												</div>
+												<p class="text-xs text-muted-foreground">
+													Images will be automatically optimized and converted to WebP format
+												</p>
 											</div>
 
 											<!-- Manual URL Input -->

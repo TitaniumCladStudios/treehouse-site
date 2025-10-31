@@ -1,12 +1,14 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { writeFile, mkdir } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import sharp from 'sharp';
 
 /**
  * POST /api/upload
- * Upload an image file
+ * Upload and optimize an image file
+ * Automatically converts to WebP format for optimal size/quality
  */
 export const POST: RequestHandler = async ({ request }) => {
 	try {
@@ -26,16 +28,17 @@ export const POST: RequestHandler = async ({ request }) => {
 			);
 		}
 
-		// Validate file size (max 5MB)
+		// Validate file size (max 5MB for upload)
 		const maxSize = 5 * 1024 * 1024; // 5MB in bytes
 		if (file.size > maxSize) {
 			return json({ error: 'File size exceeds 5MB limit' }, { status: 400 });
 		}
 
-		// Generate unique filename
+		// Generate unique filename with .webp extension
 		const timestamp = Date.now();
-		const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-		const filename = `${timestamp}_${sanitizedName}`;
+		const originalName = file.name.replace(/\.[^/.]+$/, ''); // Remove original extension
+		const sanitizedName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_');
+		const filename = `${timestamp}_${sanitizedName}.webp`;
 
 		// Ensure uploads directory exists
 		const uploadsDir = join(process.cwd(), 'static', 'uploads');
@@ -43,10 +46,16 @@ export const POST: RequestHandler = async ({ request }) => {
 			await mkdir(uploadsDir, { recursive: true });
 		}
 
-		// Save file
-		const filepath = join(uploadsDir, filename);
+		// Process image with sharp
 		const buffer = Buffer.from(await file.arrayBuffer());
-		await writeFile(filepath, buffer);
+		const filepath = join(uploadsDir, filename);
+
+		await sharp(buffer)
+			.webp({
+				quality: 85, // High quality while maintaining good compression
+				effort: 6 // Higher effort = better compression (0-6, default 4)
+			})
+			.toFile(filepath);
 
 		// Return public URL
 		const publicUrl = `/uploads/${filename}`;
