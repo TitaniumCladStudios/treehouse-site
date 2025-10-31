@@ -19,3 +19,40 @@ Good question. Several pieces of tech went into this, most of which I chose to g
 - The github API for production updates
 
 If I add any more or think of any more, I'll add them here.
+
+## Setup and Configuration
+
+### Authentication Setup
+
+The admin interface is protected by bcrypt-hashed password authentication. To set up your admin password:
+
+1. **Generate a password hash:**
+   ```bash
+   node scripts/hash-password.js your-secure-password
+   ```
+
+2. **Copy the output to your `.env` file:**
+
+   The script will output something like:
+   ```
+   ADMIN_PASSWORD_HASH=\$2b\$10\$RFx6Z3U9n8UB.UcoDfl9KektGKoedK3MCYh8sYYC7jaPfuCoz5rE2
+   ```
+
+3. **Important:** The `$` characters must be escaped with backslashes (`\$`) in your `.env` file to prevent shell variable interpolation.
+
+4. **For production deployment (Netlify, Vercel, etc.):**
+
+   Set the `ADMIN_PASSWORD_HASH` environment variable in your hosting platform's dashboard. You can use the raw hash (without escaping) when setting it through the web interface:
+   ```
+   $2b$10$RFx6Z3U9n8UB.UcoDfl9KektGKoedK3MCYh8sYYC7jaPfuCoz5rE2
+   ```
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and configure the following:
+
+- `ADMIN_PASSWORD_HASH` - Bcrypt hash of your admin password (required)
+- `SESSION_SECRET` - Random secret for session cookie signing (required)
+- `GITHUB_TOKEN` - GitHub personal access token for content commits (optional, for production)
+- `GITHUB_REPO` - Your repository in format `owner/repo-name` (optional, for production)
+- `GITHUB_BRANCH` - Target branch for commits, defaults to `main` (optional)
