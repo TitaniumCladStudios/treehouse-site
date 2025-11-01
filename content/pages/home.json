@@ -3,7 +3,7 @@
     "slug": "home",
     "title": "Home Page",
     "createdAt": "2025-10-31T00:00:00.000Z",
-    "updatedAt": "2025-10-31T17:41:00.329Z"
+    "updatedAt": "2025-11-01T01:51:35.009Z"
   },
   "fields": [
     {
@@ -40,7 +40,7 @@
       "id": "about_text",
       "label": "About Section Text",
       "type": "longText",
-      "value": "Hyperspace CMS combines the simplicity of flat-file content management with the power of Git version control. No database required, just JSON files that live alongside your code. And this section has been edited! And it has been edited again!"
+      "value": "Hyperspace CMS combines the simplicity of flat-file content management with the power of Git version control. No database required, just JSON files that live alongside your code. And this section has been edited! And it has been edited again! And new edits create git commits to persist changes!"
     },
     {
       "id": "field_1761932281692",
