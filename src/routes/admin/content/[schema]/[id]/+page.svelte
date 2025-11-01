@@ -9,6 +9,8 @@
 	import { ArrowLeft, Save, Loader2 } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import DynamicFieldRenderer from '$lib/components/admin/DynamicFieldRenderer.svelte';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let { data }: { data: PageData } = $props();
 
@@ -16,6 +18,12 @@
 	let fields: Record<string, any> = $state(data.item?.fields || {});
 	let saving = $state(false);
 	let error = $state('');
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	async function saveItem() {
 		if (!data.schema || !data.item) return;
@@ -38,6 +46,8 @@
 		error = '';
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch(`/api/content/${data.schema.slug}/${data.item.id}`, {
 				method: 'PUT',
 				headers: {
@@ -46,7 +56,11 @@
 				body: JSON.stringify({
 					title,
 					fields,
-					createdAt: data.item.createdAt
+					createdAt: data.item.createdAt,
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
 				})
 			});
 
@@ -123,10 +137,13 @@
 
 				<!-- Dynamic Fields -->
 				{#each data.schema.fields as field (field.id)}
-					<DynamicFieldRenderer {field} bind:value={fields[field.id]} />
+					<DynamicFieldRenderer {field} bind:value={fields[field.id]} {commitMetadata} />
 				{/each}
 			</Card.Content>
 		</Card.Root>
+
+		<!-- Git Commit Options -->
+		<CommitMetadataFields bind:commitMetadata />
 
 		<!-- Footer Actions -->
 		<div class="flex justify-end gap-3">

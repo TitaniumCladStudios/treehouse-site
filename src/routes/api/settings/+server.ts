@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import type { SiteSettings } from '$lib/types/content';
+import { commitChanges, buildGitAuthor } from '$lib/server/git';
 
 const SETTINGS_PATH = join(process.cwd(), 'content', 'settings.json');
 
@@ -26,17 +27,42 @@ export const GET: RequestHandler = async () => {
  * PUT /api/settings
  * Update site settings
  */
+interface SettingsPayload extends SiteSettings {
+	commitMessage?: string;
+	authorName?: string;
+	authorEmail?: string;
+	branch?: string;
+}
+
 export const PUT: RequestHandler = async ({ request }) => {
 	try {
-		const settings = (await request.json()) as SiteSettings;
+		const payload = (await request.json()) as SettingsPayload;
+		const { commitMessage, authorName, authorEmail, branch, ...settings } = payload;
 
 		// Validate required fields
 		if (!settings.siteName || !settings.siteUrl) {
 			return json({ error: 'Site name and URL are required' }, { status: 400 });
 		}
 
+		const serialized = JSON.stringify(settings, null, 2);
+
 		// Write settings to file
-		await writeFile(SETTINGS_PATH, JSON.stringify(settings, null, 2), 'utf-8');
+		await writeFile(SETTINGS_PATH, serialized, 'utf-8');
+
+		await commitChanges(
+			[
+				{
+					type: 'upsert',
+					path: 'content/settings.json',
+					content: serialized
+				}
+			],
+			{
+				message: commitMessage || 'Update site settings',
+				author: buildGitAuthor(authorName, authorEmail),
+				branch
+			}
+		);
 
 		return json({ success: true });
 	} catch (error) {

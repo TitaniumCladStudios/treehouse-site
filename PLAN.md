@@ -398,12 +398,15 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Validate required fields (title, slug)
 
 #### GitHub API Integration
-- [ ] Install and configure Octokit
-- [ ] Create git helper functions in `/lib/server/git.ts`
-- [ ] Implement commit functionality
-- [ ] Add custom commit message support
-- [ ] Handle GitHub authentication via token
-- [ ] Test commit workflow to GitHub
+- [x] Install and configure Octokit
+- [x] Create git helper functions in `/lib/server/git.ts`
+- [x] Implement commit functionality (`commitChanges`, `getCommitStats`)
+- [x] Add custom commit message support
+- [x] Handle GitHub authentication via token
+- [x] Create CommitMetadataFields component for optional git metadata
+- [x] Integrate commits into all content operations (pages, settings, media)
+- [x] Add commit stats API endpoint (`/api/git/commits`)
+- [x] Display real commit stats on dashboard
 
 #### Admin UI - Content Editor
 - [x] Create pages list view with stats (`/admin/pages`)
@@ -417,7 +420,7 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Add save functionality with toast notifications
 - [x] Add validation and error messages
 - [x] Slug generation and validation
-- [ ] Add commit message input field
+- [x] Add commit message input field (via CommitMetadataFields component)
 - [ ] Implement content preview
 
 ### Phase 3: Image Handling
@@ -435,7 +438,7 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Install and integrate `sharp` for image optimization
 - [x] Automatic WebP conversion at 85% quality
 - [x] Effort level 6 for best compression
-- [ ] Commit uploaded images to git (pending GitHub integration)
+- [x] Commit uploaded images to git via GitHub API
 
 #### Image Management UI
 - [x] Create image upload widget in PageEditor
@@ -454,6 +457,17 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [x] Add delete functionality with confirmation dialog
 - [x] Display image metadata (filename, size, date)
 - [x] Connect media stats to dashboard
+
+#### Content Types & Schemas System
+- [x] Create content schema management system
+- [x] Create `/api/schemas` endpoints for CRUD operations
+- [x] Create `/api/content/[schema]` dynamic endpoints
+- [x] Create content types management UI (`/admin/content-types`)
+- [x] Create content type editor with field definitions
+- [x] Support for custom content types beyond pages
+- [x] Dynamic content editing based on schemas
+- [x] Type-safe schema definitions with TypeScript
+- [x] Field type system (shortText, longText, image, richText, number, boolean, date)
 
 ### Additional Features Implemented
 
@@ -489,8 +503,9 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [ ] Implement side-by-side or modal preview
 
 #### Netlify Deployment
+- [ ] Install and configure `@sveltejs/adapter-netlify`
 - [ ] Create `netlify.toml` configuration
-- [ ] Set up environment variables:
+- [ ] Set up environment variables in Netlify dashboard:
   - [ ] `ADMIN_PASSWORD_HASH`
   - [ ] `GITHUB_TOKEN`
   - [ ] `GITHUB_REPO`
@@ -500,6 +515,7 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - [ ] Set up GitHub webhook for auto-deploys
 - [ ] Test deployment pipeline
 - [ ] Verify git commit workflow in production
+- [ ] Create deployment documentation
 
 ### Additional Features
 
@@ -528,20 +544,26 @@ SESSION_SECRET=<random_secret_for_cookie_signing>
 - Page content management (create, read, update, delete)
 - Dynamic field editor with multiple field types
 - Image upload with preview and validation
+- Image library with search, filter, and delete
 - Public-facing pages (home and about) pulling from CMS
 - Settings management system
+- Content types/schemas system for custom content
+- GitHub API integration with Octokit
+- Automatic git commits for all content changes
+- Custom commit messages and author metadata
+- Commit statistics on dashboard
+- Native image optimization with Sharp (WebP conversion)
 - Toast notifications for user feedback
 - Light/dark theme support
 - Responsive design throughout
 
 ### 🚧 In Progress
-- None currently
+- Netlify deployment configuration
 
 ### 📋 Next Priorities
-1. GitHub API integration for automatic commits
+1. **Netlify deployment setup** - Install adapter, create config, deploy to production
 2. Content preview functionality
-3. Dedicated image library page
-4. Netlify deployment configuration
-5. Documentation and testing
+3. Documentation and testing
+4. User guide for content editors
 
 **Last Updated:** 2025-10-31

@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { listSchemas, saveSchema } from '$lib/server/schema';
 import type { ContentSchema } from '$lib/types/content';
+import { buildGitAuthor } from '$lib/server/git';
 
 /**
  * GET /api/schemas
@@ -21,9 +22,17 @@ export const GET: RequestHandler = async () => {
  * POST /api/schemas
  * Create a new content type schema
  */
+interface SchemaMutationPayload extends ContentSchema {
+	commitMessage?: string;
+	authorName?: string;
+	authorEmail?: string;
+	branch?: string;
+}
+
 export const POST: RequestHandler = async ({ request }) => {
 	try {
-		const schema = (await request.json()) as ContentSchema;
+		const payload = (await request.json()) as SchemaMutationPayload;
+		const { commitMessage, authorName, authorEmail, branch, ...schema } = payload;
 
 		// Validate required fields
 		if (!schema.slug || !schema.name) {
@@ -34,7 +43,11 @@ export const POST: RequestHandler = async ({ request }) => {
 		schema.createdAt = new Date().toISOString();
 		schema.updatedAt = new Date().toISOString();
 
-		await saveSchema(schema);
+		await saveSchema(schema, {
+			commitMessage,
+			author: buildGitAuthor(authorName, authorEmail),
+			branch
+		});
 
 		return json({ success: true, slug: schema.slug }, { status: 201 });
 	} catch (error) {

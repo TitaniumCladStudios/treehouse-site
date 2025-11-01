@@ -9,6 +9,8 @@
 	import { Save, Loader2 } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import type { SiteSettings } from '$lib/types/content';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let { data }: { data: PageData } = $props();
 
@@ -23,6 +25,12 @@
 
 	let saving = $state(false);
 	let error = $state('');
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	async function saveSettings() {
 		// Validate
@@ -40,12 +48,20 @@
 		error = '';
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch('/api/settings', {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(settings)
+				body: JSON.stringify({
+					...settings,
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
+				})
 			});
 
 			if (!response.ok) {
@@ -155,6 +171,8 @@
 				</div>
 			</Card.Content>
 		</Card.Root>
+
+		<CommitMetadataFields bind:commitMetadata />
 
 		<!-- Footer Actions -->
 		<div class="flex justify-end">

@@ -5,11 +5,19 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Plus, Search, FileText, Edit, Trash2, Loader2 } from 'lucide-svelte';
 	import type { PageList } from '$lib/types/content';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
-	let pages: PageList['pages'] = [];
-	let searchQuery = '';
-	let loading = true;
-	let error = '';
+let pages: PageList['pages'] = $state([]);
+let searchQuery = $state('');
+let loading = $state(true);
+let error = $state('');
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	onMount(async () => {
 		await loadPages();
@@ -39,8 +47,19 @@
 		}
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch(`/api/content/pages/${slug}`, {
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
+				})
 			});
 
 			if (!response.ok) {
@@ -73,10 +92,12 @@
 		}
 	}
 
-	$: filteredPages = pages.filter(
-		(page) =>
-			page.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			page.slug.toLowerCase().includes(searchQuery.toLowerCase())
+	const filteredPages = $derived(
+		pages.filter(
+			(page) =>
+				page.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				page.slug.toLowerCase().includes(searchQuery.toLowerCase())
+		)
 	);
 </script>
 
@@ -95,6 +116,8 @@
 			Create Page
 		</Button>
 	</div>
+
+	<CommitMetadataFields bind:commitMetadata />
 
 	{#if error}
 		<Card.Root class="border-destructive">

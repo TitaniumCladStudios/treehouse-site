@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import { readdir, stat, unlink } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import { commitChanges, buildGitAuthor } from '$lib/server/git';
 
 interface MediaFile {
 	filename: string;
@@ -68,9 +69,18 @@ export const GET: RequestHandler = async () => {
  * DELETE /api/media
  * Delete an uploaded image
  */
+interface MediaDeletePayload {
+	filename: string;
+	commitMessage?: string;
+	authorName?: string;
+	authorEmail?: string;
+	branch?: string;
+}
+
 export const DELETE: RequestHandler = async ({ request }) => {
 	try {
-		const { filename } = await request.json();
+		const payload = (await request.json()) as MediaDeletePayload;
+		const { filename, commitMessage, authorName, authorEmail, branch } = payload;
 
 		if (!filename) {
 			return json({ error: 'Filename is required' }, { status: 400 });
@@ -90,6 +100,20 @@ export const DELETE: RequestHandler = async ({ request }) => {
 
 		// Delete file
 		await unlink(filepath);
+
+		await commitChanges(
+			[
+				{
+					type: 'delete',
+					path: join('static', 'uploads', filename).replace(/\\/g, '/')
+				}
+			],
+			{
+				message: commitMessage || `Delete media: ${filename}`,
+				author: buildGitAuthor(authorName, authorEmail),
+				branch
+			}
+		);
 
 		return json({ success: true });
 	} catch (error) {

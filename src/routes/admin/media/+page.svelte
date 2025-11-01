@@ -8,6 +8,8 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Image as ImageIcon, Copy, Trash2, Upload, Search, X } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let { data }: { data: PageData } = $props();
 
@@ -17,6 +19,12 @@
 	let deleteDialogOpen = $state(false);
 	let uploadDialogOpen = $state(false);
 	let uploading = $state(false);
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	// Filter files based on search
 	const filteredFiles = $derived(
@@ -57,12 +65,20 @@
 		if (!selectedFile) return;
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch('/api/media', {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ filename: selectedFile.filename })
+				body: JSON.stringify({
+					filename: selectedFile.filename,
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
+				})
 			});
 
 			if (!response.ok) {
@@ -91,8 +107,22 @@
 		uploading = true;
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const formData = new FormData();
 			formData.append('file', file);
+			if (message?.trim()) {
+				formData.append('commitMessage', message.trim());
+			}
+			if (authorName?.trim()) {
+				formData.append('authorName', authorName.trim());
+			}
+			if (authorEmail?.trim()) {
+				formData.append('authorEmail', authorEmail.trim());
+			}
+			if (branch?.trim()) {
+				formData.append('branch', branch.trim());
+			}
 
 			const response = await fetch('/api/upload', {
 				method: 'POST',
@@ -146,6 +176,8 @@
 			Upload Image
 		</Button>
 	</div>
+
+	<CommitMetadataFields bind:commitMetadata />
 
 	<!-- Search -->
 	<div class="relative">

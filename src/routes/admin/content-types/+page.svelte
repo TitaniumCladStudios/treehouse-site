@@ -5,6 +5,8 @@
 	import { Plus, Pencil, Trash2, FileText, Loader2 } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import * as Dialog from '$lib/components/ui/dialog';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let { data }: { data: PageData } = $props();
 
@@ -12,6 +14,12 @@
 	let deleteDialogOpen = $state(false);
 	let selectedSchema: any = $state(null);
 	let deleting = $state(false);
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	// Open delete dialog
 	function openDeleteDialog(schema: any) {
@@ -26,8 +34,19 @@
 		deleting = true;
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch(`/api/schemas/${selectedSchema.slug}`, {
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
+				})
 			});
 
 			if (!response.ok) {
@@ -66,6 +85,9 @@
 			New Content Type
 		</Button>
 	</div>
+
+	<!-- Content Types Grid -->
+	<CommitMetadataFields bind:commitMetadata />
 
 	<!-- Content Types Grid -->
 	{#if schemas.length === 0}

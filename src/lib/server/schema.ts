@@ -6,6 +6,7 @@ import { readdir, readFile, writeFile, unlink, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import type { ContentSchema, SchemaList, ContentItem } from '$lib/types/content';
+import { commitChanges, type GitAuthor } from './git';
 
 const SCHEMAS_DIR = join(process.cwd(), 'content', 'schemas');
 const COLLECTIONS_DIR = join(process.cwd(), 'content', 'collections');
@@ -66,13 +67,45 @@ export async function loadSchema(slug: string): Promise<ContentSchema> {
 	}
 }
 
+export interface SchemaCommitOptions {
+	commitMessage?: string;
+	author?: GitAuthor;
+	branch?: string;
+}
+
+export interface CollectionCommitOptions extends SchemaCommitOptions {
+	itemTitle?: string;
+}
+
 /**
  * Save a schema
  */
-export async function saveSchema(schema: ContentSchema): Promise<void> {
+export async function saveSchema(schema: ContentSchema, options: SchemaCommitOptions = {}): Promise<void> {
 	try {
 		const filePath = join(SCHEMAS_DIR, `${schema.slug}.json`);
-		await writeFile(filePath, JSON.stringify(schema, null, 2), 'utf-8');
+		const fileExisted = existsSync(filePath);
+		const payload = JSON.stringify(schema, null, 2);
+
+		await writeFile(filePath, payload, 'utf-8');
+
+		const relativePath = join('content', 'schemas', `${schema.slug}.json`).replace(/\\/g, '/');
+
+		await commitChanges(
+			[
+				{
+					type: 'upsert',
+					path: relativePath,
+					content: payload
+				}
+			],
+			{
+				message:
+					options.commitMessage ||
+					(fileExisted ? `Update schema: ${schema.slug}` : `Create schema: ${schema.slug}`),
+				author: options.author,
+				branch: options.branch
+			}
+		);
 	} catch (error) {
 		console.error(`Error saving schema ${schema.slug}:`, error);
 		throw new Error('Failed to save schema');
@@ -82,7 +115,7 @@ export async function saveSchema(schema: ContentSchema): Promise<void> {
 /**
  * Delete a schema
  */
-export async function deleteSchema(slug: string): Promise<void> {
+export async function deleteSchema(slug: string, options: SchemaCommitOptions = {}): Promise<void> {
 	try {
 		const filePath = join(SCHEMAS_DIR, `${slug}.json`);
 
@@ -91,6 +124,22 @@ export async function deleteSchema(slug: string): Promise<void> {
 		}
 
 		await unlink(filePath);
+
+		const relativePath = join('content', 'schemas', `${slug}.json`).replace(/\\/g, '/');
+
+		await commitChanges(
+			[
+				{
+					type: 'delete',
+					path: relativePath
+				}
+			],
+			{
+				message: options.commitMessage || `Delete schema: ${slug}`,
+				author: options.author,
+				branch: options.branch
+			}
+		);
 	} catch (error) {
 		console.error(`Error deleting schema ${slug}:`, error);
 		throw error;
@@ -171,7 +220,8 @@ export async function loadCollectionItem(
  */
 export async function saveCollectionItem(
 	schemaSlug: string,
-	item: ContentItem
+	item: ContentItem,
+	options: CollectionCommitOptions = {}
 ): Promise<void> {
 	try {
 		const collectionDir = join(COLLECTIONS_DIR, schemaSlug);
@@ -183,7 +233,35 @@ export async function saveCollectionItem(
 		}
 
 		const filePath = join(collectionDir, `${item.id}.json`);
-		await writeFile(filePath, JSON.stringify(item, null, 2), 'utf-8');
+		const fileExisted = existsSync(filePath);
+		const payload = JSON.stringify(item, null, 2);
+
+		await writeFile(filePath, payload, 'utf-8');
+
+		const relativePath = join('content', 'collections', schemaSlug, `${item.id}.json`).replace(
+			/\\/g,
+			'/'
+		);
+
+		const defaultTitle = options.itemTitle || item.title || item.id;
+		const defaultMessage = fileExisted ? 'Update' : 'Create';
+
+		await commitChanges(
+			[
+				{
+					type: 'upsert',
+					path: relativePath,
+					content: payload
+				}
+			],
+			{
+				message:
+					options.commitMessage ||
+					`${defaultMessage} ${schemaSlug} item: ${defaultTitle}`.trim(),
+				author: options.author,
+				branch: options.branch
+			}
+		);
 	} catch (error) {
 		console.error(`Error saving item ${schemaSlug}/${item.id}:`, error);
 		throw new Error('Failed to save collection item');
@@ -193,7 +271,11 @@ export async function saveCollectionItem(
 /**
  * Delete a collection item
  */
-export async function deleteCollectionItem(schemaSlug: string, itemId: string): Promise<void> {
+export async function deleteCollectionItem(
+	schemaSlug: string,
+	itemId: string,
+	options: CollectionCommitOptions = {}
+): Promise<void> {
 	try {
 		const filePath = join(COLLECTIONS_DIR, schemaSlug, `${itemId}.json`);
 
@@ -201,7 +283,30 @@ export async function deleteCollectionItem(schemaSlug: string, itemId: string): 
 			throw new Error(`Item not found: ${itemId}`);
 		}
 
+		const itemTitle = options.itemTitle;
+
 		await unlink(filePath);
+
+		const relativePath = join('content', 'collections', schemaSlug, `${itemId}.json`).replace(
+			/\\/g,
+			'/'
+		);
+
+		await commitChanges(
+			[
+				{
+					type: 'delete',
+					path: relativePath
+				}
+			],
+			{
+				message:
+					options.commitMessage ||
+					`Delete ${schemaSlug} item: ${itemTitle || itemId}`.trim(),
+				author: options.author,
+				branch: options.branch
+			}
+		);
 	} catch (error) {
 		console.error(`Error deleting item ${schemaSlug}/${itemId}:`, error);
 		throw error;

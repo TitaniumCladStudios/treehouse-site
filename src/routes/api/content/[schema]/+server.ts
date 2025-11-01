@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { listCollectionItems, saveCollectionItem } from '$lib/server/schema';
 import type { ContentItem } from '$lib/types/content';
+import { buildGitAuthor } from '$lib/server/git';
 
 /**
  * GET /api/content/[schema]
@@ -21,9 +22,19 @@ export const GET: RequestHandler = async ({ params }) => {
  * POST /api/content/[schema]
  * Create a new content item
  */
+interface CollectionCreatePayload {
+	title?: string;
+	fields?: Record<string, any>;
+	commitMessage?: string;
+	authorName?: string;
+	authorEmail?: string;
+	branch?: string;
+}
+
 export const POST: RequestHandler = async ({ params, request }) => {
 	try {
-		const data = await request.json();
+		const payload = (await request.json()) as CollectionCreatePayload;
+		const { commitMessage, authorName, authorEmail, branch, ...data } = payload;
 
 		// Create new item
 		const item: ContentItem = {
@@ -35,7 +46,12 @@ export const POST: RequestHandler = async ({ params, request }) => {
 			updatedAt: new Date().toISOString()
 		};
 
-		await saveCollectionItem(params.schema, item);
+		await saveCollectionItem(params.schema, item, {
+			commitMessage,
+			author: buildGitAuthor(authorName, authorEmail),
+			branch,
+			itemTitle: item.title
+		});
 
 		return json({ success: true, id: item.id }, { status: 201 });
 	} catch (error) {

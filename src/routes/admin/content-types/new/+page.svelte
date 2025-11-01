@@ -9,6 +9,8 @@
 	import { ArrowLeft, Save, Plus, Trash2, GripVertical, Loader2 } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import type { ContentSchema, SchemaField, SchemaFieldType } from '$lib/types/content';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let schema: ContentSchema = $state({
 		slug: '',
@@ -22,6 +24,12 @@
 
 	let saving = $state(false);
 	let error = $state('');
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	const fieldTypes: { value: SchemaFieldType; label: string }[] = [
 		{ value: 'shortText', label: 'Short Text' },
@@ -89,12 +97,20 @@
 		error = '';
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch('/api/schemas', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(schema)
+				body: JSON.stringify({
+					...schema,
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
+				})
 			});
 
 			if (!response.ok) {
@@ -293,6 +309,8 @@
 			{/if}
 		</Card.Content>
 	</Card.Root>
+
+	<CommitMetadataFields bind:commitMetadata />
 
 	<!-- Footer Actions -->
 	<div class="flex justify-end gap-3">

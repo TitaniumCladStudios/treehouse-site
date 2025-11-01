@@ -12,12 +12,27 @@
 		createdAt: string;
 	}
 
+	interface CommitStats {
+		total: number;
+		recent: Array<{
+			sha: string;
+			message: string;
+			author: {
+				name: string;
+				email: string;
+				date: string;
+			};
+			url: string;
+		}>;
+	}
+
 	let pages: PageList['pages'] = [];
 	let mediaFiles: MediaFile[] = [];
+	let commitStats: CommitStats = { total: 0, recent: [] };
 	let loading = true;
 
 	onMount(async () => {
-		await Promise.all([loadPages(), loadMedia()]);
+		await Promise.all([loadPages(), loadMedia(), loadCommitStats()]);
 	});
 
 	async function loadPages() {
@@ -43,6 +58,17 @@
 			console.error('Error loading media:', err);
 		} finally {
 			loading = false;
+		}
+	}
+
+	async function loadCommitStats() {
+		try {
+			const response = await fetch('/api/git/commits?limit=5');
+			if (response.ok) {
+				commitStats = await response.json();
+			}
+		} catch (err) {
+			console.error('Error loading commit stats:', err);
 		}
 	}
 
@@ -140,8 +166,17 @@
 				<GitCommit class="h-4 w-4 text-muted-foreground" />
 			</Card.Header>
 			<Card.Content>
-				<div class="text-2xl font-bold">0</div>
-				<p class="text-xs text-muted-foreground">Coming soon</p>
+				{#if loading}
+					<Loader2 class="h-6 w-6 animate-spin text-muted-foreground" />
+				{:else}
+					<div class="text-2xl font-bold">{commitStats.total}</div>
+					<p class="text-xs text-muted-foreground">
+						{commitStats.recent.length > 0
+							? commitStats.recent[0].message.split('\n')[0].slice(0, 40) +
+								(commitStats.recent[0].message.split('\n')[0].length > 40 ? '...' : '')
+							: 'No commits yet'}
+					</p>
+				{/if}
 			</Card.Content>
 		</Card.Root>
 

@@ -5,7 +5,9 @@
 	import { ArrowLeft, Save, Loader2 } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import PageEditor from '$lib/components/admin/PageEditor.svelte';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
 	import type { PageContent } from '$lib/types/content';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let pageData: PageContent = $state({
 		metadata: {
@@ -19,6 +21,12 @@
 
 	let saving = $state(false);
 	let error = $state('');
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	async function savePage() {
 		// Validate
@@ -43,12 +51,20 @@
 		error = '';
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch('/api/content/pages', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(pageData)
+				body: JSON.stringify({
+					...pageData,
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined
+				})
 			});
 
 			if (!response.ok) {
@@ -106,7 +122,10 @@
 	{/if}
 
 	<!-- Page Editor -->
-	<PageEditor bind:pageData isNew={true} />
+	<PageEditor bind:pageData isNew={true} {commitMetadata} />
+
+	<!-- Git Commit Options -->
+	<CommitMetadataFields bind:commitMetadata />
 
 	<!-- Footer Actions -->
 	<div class="flex justify-end gap-3 border-t pt-6">

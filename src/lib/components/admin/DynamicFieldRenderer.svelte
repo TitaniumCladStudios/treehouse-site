@@ -6,15 +6,18 @@
 	import { Loader2, X } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import type { SchemaField } from '$lib/types/content';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let {
 		field,
 		value = $bindable(),
-		disabled = false
+		disabled = false,
+		commitMetadata
 	}: {
 		field: SchemaField;
 		value: any;
 		disabled?: boolean;
+		commitMetadata?: CommitMetadata;
 	} = $props();
 
 	let uploading = $state(false);
@@ -29,6 +32,18 @@
 		try {
 			const formData = new FormData();
 			formData.append('file', file);
+			if (commitMetadata?.message?.trim()) {
+				formData.append('commitMessage', commitMetadata.message.trim());
+			}
+			if (commitMetadata?.authorName?.trim()) {
+				formData.append('authorName', commitMetadata.authorName.trim());
+			}
+			if (commitMetadata?.authorEmail?.trim()) {
+				formData.append('authorEmail', commitMetadata.authorEmail.trim());
+			}
+			if (commitMetadata?.branch?.trim()) {
+				formData.append('branch', commitMetadata.branch.trim());
+			}
 
 			const response = await fetch('/api/upload', {
 				method: 'POST',

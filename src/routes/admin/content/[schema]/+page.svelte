@@ -5,6 +5,8 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Plus, Pencil, Trash2, FileText, Loader2 } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import CommitMetadataFields from '$lib/components/admin/CommitMetadataFields.svelte';
+	import type { CommitMetadata } from '$lib/types/git';
 
 	let { data }: { data: PageData } = $props();
 
@@ -12,6 +14,12 @@
 	let deleteDialogOpen = $state(false);
 	let selectedItem: any = $state(null);
 	let deleting = $state(false);
+	let commitMetadata: CommitMetadata = $state({
+		message: '',
+		authorName: '',
+		authorEmail: '',
+		branch: ''
+	});
 
 	function openDeleteDialog(item: any) {
 		selectedItem = item;
@@ -24,8 +32,20 @@
 		deleting = true;
 
 		try {
+			const { message, authorName, authorEmail, branch } = commitMetadata;
+
 			const response = await fetch(`/api/content/${data.schema.slug}/${selectedItem.id}`, {
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					commitMessage: message?.trim() || undefined,
+					authorName: authorName?.trim() || undefined,
+					authorEmail: authorEmail?.trim() || undefined,
+					branch: branch?.trim() || undefined,
+					title: selectedItem.title
+				})
 			});
 
 			if (!response.ok) {
@@ -71,6 +91,9 @@
 				New {data.schema.name}
 			</Button>
 		</div>
+
+		<!-- Git Commit Options -->
+		<CommitMetadataFields bind:commitMetadata />
 
 		<!-- Items List -->
 		{#if items.length === 0}

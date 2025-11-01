@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { loadSchema, saveSchema, deleteSchema } from '$lib/server/schema';
 import type { ContentSchema } from '$lib/types/content';
+import { buildGitAuthor } from '$lib/server/git';
 
 /**
  * GET /api/schemas/[slug]
@@ -21,9 +22,17 @@ export const GET: RequestHandler = async ({ params }) => {
  * PUT /api/schemas/[slug]
  * Update an existing schema
  */
+interface SchemaUpdatePayload extends ContentSchema {
+	commitMessage?: string;
+	authorName?: string;
+	authorEmail?: string;
+	branch?: string;
+}
+
 export const PUT: RequestHandler = async ({ params, request }) => {
 	try {
-		const schema = (await request.json()) as ContentSchema;
+		const payload = (await request.json()) as SchemaUpdatePayload;
+		const { commitMessage, authorName, authorEmail, branch, ...schema } = payload;
 
 		// Validate required fields
 		if (!schema.slug || !schema.name) {
@@ -38,7 +47,11 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 		// Update timestamp
 		schema.updatedAt = new Date().toISOString();
 
-		await saveSchema(schema);
+		await saveSchema(schema, {
+			commitMessage,
+			author: buildGitAuthor(authorName, authorEmail),
+			branch
+		});
 
 		return json({ success: true });
 	} catch (error) {
@@ -51,9 +64,32 @@ export const PUT: RequestHandler = async ({ params, request }) => {
  * DELETE /api/schemas/[slug]
  * Delete a schema
  */
-export const DELETE: RequestHandler = async ({ params }) => {
+export const DELETE: RequestHandler = async ({ params, request }) => {
 	try {
-		await deleteSchema(params.slug);
+		let commitMessage: string | undefined;
+		let branch: string | undefined;
+		let authorName: string | undefined;
+		let authorEmail: string | undefined;
+
+		const contentType = request.headers.get('content-type') || '';
+
+		if (contentType.includes('application/json')) {
+			try {
+				const body = await request.json();
+				commitMessage = body?.commitMessage;
+				branch = body?.branch;
+				authorName = body?.authorName;
+				authorEmail = body?.authorEmail;
+			} catch (parseError) {
+				console.warn(`Failed to parse DELETE payload for schema ${params.slug}:`, parseError);
+			}
+		}
+
+		await deleteSchema(params.slug, {
+			commitMessage,
+			branch,
+			author: buildGitAuthor(authorName, authorEmail)
+		});
 		return json({ success: true });
 	} catch (error) {
 		console.error(`Error deleting schema ${params.slug}:`, error);

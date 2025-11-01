@@ -56,3 +56,84 @@ Copy `.env.example` to `.env` and configure the following:
 - `GITHUB_TOKEN` - GitHub personal access token for content commits (optional, for production)
 - `GITHUB_REPO` - Your repository in format `owner/repo-name` (optional, for production)
 - `GITHUB_BRANCH` - Target branch for commits, defaults to `main` (optional)
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Deployment
+
+Ready to deploy to production? Check out the comprehensive [Deployment Guide](./DEPLOYMENT.md) for step-by-step instructions on deploying to Netlify.
+
+The deployment guide covers:
+- Setting up GitHub tokens
+- Configuring environment variables
+- Deploying to Netlify
+- Setting up automatic rebuilds
+- Custom domains
+- Troubleshooting
+
+## Features
+
+- ✅ Git-backed content storage
+- ✅ Dynamic content types and schemas
+- ✅ Image upload with automatic WebP optimization
+- ✅ GitHub API integration for automatic commits
+- ✅ Custom commit messages and author metadata
+- ✅ Light/dark theme support
+- ✅ Responsive admin interface
+- ✅ Simple authentication system
+- ✅ Real-time commit statistics
+- ✅ Media library with search and management
+- ✅ Settings management
+- ✅ Toast notifications
+
+## Project Structure
+
+```
+/src
+  /routes
+    /admin              # Protected admin interface
+      +layout.svelte    # Admin layout with sidebar
+      +page.svelte      # Dashboard
+      /pages            # Page management
+      /content-types    # Schema management
+      /media            # Image library
+      /settings         # Site settings
+    /api                # API endpoints (become Netlify functions)
+      /auth             # Authentication
+      /content          # Content CRUD
+      /git              # Git stats
+      /media            # Image management
+      /schemas          # Schema CRUD
+      /settings         # Settings CRUD
+      /upload           # Image upload
+    +page.svelte        # Public homepage
+  /lib
+    /server
+      /auth.ts          # Authentication logic
+      /git.ts           # GitHub API integration
+      /content.ts       # Content file operations
+      /schema.ts        # Schema management
+    /components         # Reusable components
+/content                # JSON content files (versioned in git)
+  /pages                # Page content
+  settings.json         # Site settings
+/static/uploads         # Uploaded images (gitignored)
+```
+
+## License
+
+MIT

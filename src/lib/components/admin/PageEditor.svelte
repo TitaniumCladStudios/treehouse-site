@@ -16,10 +16,25 @@
 		X
 	} from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
-	import type { PageContent, PageField, PageFieldType, SchemaList, ContentItem } from '$lib/types/content';
+	import type {
+		PageContent,
+		PageField,
+		PageFieldType,
+		SchemaList,
+		ContentItem
+	} from '$lib/types/content';
+	import type { CommitMetadata } from '$lib/types/git';
 
-	// Props
-	let { pageData, isNew = false }: { pageData: PageContent; isNew?: boolean } = $props();
+// Props
+let {
+	pageData = $bindable<PageContent>(),
+	isNew = false,
+	commitMetadata
+}: {
+	pageData: PageContent;
+	isNew?: boolean;
+	commitMetadata?: CommitMetadata;
+} = $props();
 
 	// Track uploading state per field
 	let uploadingFields: Record<string, boolean> = $state({});
@@ -50,12 +65,12 @@
 	async function loadExistingContentReferences() {
 		// Load content items for any existing content reference fields
 		const referenceFields = pageData.fields.filter(
-			(field) => field.type === 'contentReference' && field.referenceSchema
+			(field: PageField) => field.type === 'contentReference' && field.referenceSchema
 		);
 
 		// Load all reference schemas in parallel
 		await Promise.all(
-			referenceFields.map((field) => loadContentItems(field.referenceSchema!))
+			referenceFields.map((field: PageField) => loadContentItems(field.referenceSchema!))
 		);
 	}
 
@@ -108,7 +123,7 @@
 	}
 
 	function removeField(index: number) {
-		pageData.fields = pageData.fields.filter((_, i) => i !== index);
+		pageData.fields = pageData.fields.filter((_: PageField, i: number) => i !== index);
 	}
 
 	function moveFieldUp(index: number) {
@@ -153,6 +168,18 @@
 		try {
 			const formData = new FormData();
 			formData.append('file', file);
+			if (commitMetadata?.message?.trim()) {
+				formData.append('commitMessage', commitMetadata.message.trim());
+			}
+			if (commitMetadata?.authorName?.trim()) {
+				formData.append('authorName', commitMetadata.authorName.trim());
+			}
+			if (commitMetadata?.authorEmail?.trim()) {
+				formData.append('authorEmail', commitMetadata.authorEmail.trim());
+			}
+			if (commitMetadata?.branch?.trim()) {
+				formData.append('branch', commitMetadata.branch.trim());
+			}
 
 			const response = await fetch('/api/upload', {
 				method: 'POST',
@@ -167,7 +194,7 @@
 			const data = await response.json();
 
 			// Update field value with uploaded image URL
-			const field = pageData.fields.find((f) => f.id === fieldId);
+			const field = pageData.fields.find((f: PageField) => f.id === fieldId);
 			if (field) {
 				field.value = data.url;
 			}
@@ -190,7 +217,7 @@
 	}
 
 	function clearImage(fieldId: string) {
-		const field = pageData.fields.find((f) => f.id === fieldId);
+		const field = pageData.fields.find((f: PageField) => f.id === fieldId);
 		if (field) {
 			field.value = '';
 		}
@@ -356,7 +383,10 @@
 												<!-- Multi-select with checkboxes -->
 												<div class="space-y-2 rounded-lg border p-3 max-h-64 overflow-y-auto">
 													{#each contentItemsBySchema[field.referenceSchema] as item}
-														{@const isSelected = field.value?.split(',').map(id => id.trim()).includes(item.id)}
+														{@const isSelected = field.value
+															?.split(',')
+															.map((id: string) => id.trim())
+															.includes(item.id)}
 														<div class="flex items-center gap-2">
 															<input
 																id="ref-{field.id}-{item.id}"
@@ -364,7 +394,12 @@
 																checked={isSelected}
 																onchange={(e) => {
 																	const checked = (e.target as HTMLInputElement).checked;
-																	const currentIds = field.value ? field.value.split(',').map(id => id.trim()).filter(Boolean) : [];
+																	const currentIds = field.value
+																		? field.value
+																				.split(',')
+																				.map((id: string) => id.trim())
+																				.filter(Boolean)
+																		: [];
 
 																	if (checked && !currentIds.includes(item.id)) {
 																		currentIds.push(item.id);
