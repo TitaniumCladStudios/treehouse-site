@@ -1,10 +1,31 @@
 import { readdir, readFile, writeFile, unlink, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import type { PageContent, PageList } from '$lib/types/content';
 import { commitChanges, type GitAuthor } from './git';
 
-const CONTENT_DIR = path.join(process.cwd(), 'content', 'pages');
+// Robust path resolution for both dev and production (Netlify)
+function getContentDir(): string {
+	// Try multiple possible locations
+	const possiblePaths = [
+		path.join(process.cwd(), 'content', 'pages'),
+		path.join(process.cwd(), 'build', 'content', 'pages'),
+		path.join(process.cwd(), '..', '..', 'content', 'pages'),
+		path.join('/var/task', 'content', 'pages'),
+	];
+
+	for (const testPath of possiblePaths) {
+		if (existsSync(testPath)) {
+			return testPath;
+		}
+	}
+
+	// Fallback to default
+	return path.join(process.cwd(), 'content', 'pages');
+}
+
+const CONTENT_DIR = getContentDir();
 
 /**
  * Ensure the content directory exists

@@ -8,6 +8,8 @@
 [functions]
   node_bundler = "esbuild"
   directory = ".netlify/functions-internal"
+  # Include content directory in function bundle
+  included_files = ["content/**"]
 
 # Headers for security
 [[headers]]

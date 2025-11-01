@@ -11,7 +11,9 @@ const config = {
     // Using adapter-netlify for Netlify deployment
     adapter: adapter({
       edge: false,
-      split: false
+      split: false,
+      // Include content directory in serverless functions
+      external: ['content/**/*']
     }),
     alias: {
       "@/*": "./path/to/lib/*",

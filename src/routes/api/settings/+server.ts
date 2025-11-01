@@ -2,10 +2,29 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
+import { existsSync } from 'fs';
 import type { SiteSettings } from '$lib/types/content';
 import { commitChanges, buildGitAuthor } from '$lib/server/git';
 
-const SETTINGS_PATH = join(process.cwd(), 'content', 'settings.json');
+// Robust path resolution for both dev and production (Netlify)
+function getSettingsPath(): string {
+	const possiblePaths = [
+		join(process.cwd(), 'content', 'settings.json'),
+		join(process.cwd(), 'build', 'content', 'settings.json'),
+		join(process.cwd(), '..', '..', 'content', 'settings.json'),
+		join('/var/task', 'content', 'settings.json'),
+	];
+
+	for (const testPath of possiblePaths) {
+		if (existsSync(testPath)) {
+			return testPath;
+		}
+	}
+
+	return join(process.cwd(), 'content', 'settings.json');
+}
+
+const SETTINGS_PATH = getSettingsPath();
 
 /**
  * GET /api/settings

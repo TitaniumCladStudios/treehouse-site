@@ -8,8 +8,26 @@ import { existsSync } from 'fs';
 import type { ContentSchema, SchemaList, ContentItem } from '$lib/types/content';
 import { commitChanges, type GitAuthor } from './git';
 
-const SCHEMAS_DIR = join(process.cwd(), 'content', 'schemas');
-const COLLECTIONS_DIR = join(process.cwd(), 'content', 'collections');
+// Robust path resolution for both dev and production (Netlify)
+function findContentPath(subdir: string): string {
+	const possiblePaths = [
+		join(process.cwd(), 'content', subdir),
+		join(process.cwd(), 'build', 'content', subdir),
+		join(process.cwd(), '..', '..', 'content', subdir),
+		join('/var/task', 'content', subdir),
+	];
+
+	for (const testPath of possiblePaths) {
+		if (existsSync(testPath)) {
+			return testPath;
+		}
+	}
+
+	return join(process.cwd(), 'content', subdir);
+}
+
+const SCHEMAS_DIR = findContentPath('schemas');
+const COLLECTIONS_DIR = findContentPath('collections');
 
 /**
  * List all schemas
