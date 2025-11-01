@@ -9,11 +9,6 @@
   node_bundler = "esbuild"
   directory = ".netlify/functions-internal"
 
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/render"
-  status = 200
-
 # Headers for security
 [[headers]]
   for = "/*"
