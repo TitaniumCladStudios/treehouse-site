@@ -1,11 +1,11 @@
 {
-  "id": "item_1761931340595",
-  "schemaSlug": "features",
   "title": "Single Deployment Source",
   "fields": {
     "field_1761931207095": "Single Deployment Source",
-    "field_1761931234806": "Embedded within the file system of a Sveltekit project, meaning it can be deployed to a single host. You could host this website AND CMS on Netlify for dirt cheap."
+    "field_1761931234806": "Embedded within the file system of a Sveltekit project, meaning it can be deployed to a single host. You could host this website AND CMS on Netlify for dirt cheap. In fact, this site is running on Netlify right now."
   },
   "createdAt": "2025-10-31T17:22:20.596Z",
-  "updatedAt": "2025-10-31T17:22:20.596Z"
+  "id": "item_1761931340595",
+  "schemaSlug": "features",
+  "updatedAt": "2025-11-03T12:43:00.678Z"
 }
