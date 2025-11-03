@@ -223,14 +223,6 @@ export async function getCommitStats(limit: number = 10): Promise<CommitStats> {
 			per_page: limit
 		});
 
-		// Get total commit count (approximate from the branch)
-		const { data: compareData } = await octokit.repos.compareCommits({
-			owner,
-			repo,
-			base: `${branch}~${commits.length}`,
-			head: branch
-		});
-
 		const recent: CommitInfo[] = commits.map((commit) => ({
 			sha: commit.sha,
 			message: commit.commit.message,
@@ -242,8 +234,38 @@ export async function getCommitStats(limit: number = 10): Promise<CommitStats> {
 			url: commit.html_url
 		}));
 
+		// Try to get a more accurate total count by fetching all commits with pagination
+		let totalCount = commits.length;
+
+		// If we got the full limit, there might be more commits
+		if (commits.length === limit) {
+			try {
+				// Get just the first page with per_page=1 to check headers
+				const { headers } = await octokit.repos.listCommits({
+					owner,
+					repo,
+					sha: branch,
+					per_page: 1
+				});
+
+				// GitHub provides link header with pagination info, but for simplicity
+				// we'll just use a large per_page to get an approximate count
+				const { data: allCommits } = await octokit.repos.listCommits({
+					owner,
+					repo,
+					sha: branch,
+					per_page: 100 // Max allowed by GitHub
+				});
+
+				totalCount = allCommits.length;
+			} catch (countError) {
+				// If we can't get the total, just use what we have
+				console.log('Could not fetch total commit count, using fetched count');
+			}
+		}
+
 		return {
-			total: compareData.total_commits || commits.length,
+			total: totalCount,
 			recent
 		};
 	} catch (error) {

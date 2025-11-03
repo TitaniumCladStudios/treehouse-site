@@ -4,7 +4,7 @@
 	import * as Sidebar from '$lib/components/ui/sidebar';
 	import { Button } from '$lib/components/ui/button';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { Home, FileText, Settings, Menu, ExternalLink, Image, Layout, Folder } from 'lucide-svelte';
+	import { Home, FileText, Settings, Menu, ExternalLink, Image, Layout, Folder, GitCommit } from 'lucide-svelte';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
@@ -42,6 +42,11 @@
 			title: 'Media',
 			url: '/admin/media',
 			icon: Image
+		},
+		{
+			title: 'Commits',
+			url: '/admin/commits',
+			icon: GitCommit
 		},
 		{
 			title: 'Settings',

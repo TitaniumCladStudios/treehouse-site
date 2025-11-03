@@ -265,7 +265,7 @@
 					<Image class="mr-2 h-4 w-4" />
 					Media Library
 				</Button>
-				<Button class="w-full justify-start" variant="outline" href="/admin/settings">
+				<Button class="w-full justify-start" variant="outline" href="/admin/commits">
 					<GitCommit class="mr-2 h-4 w-4" />
 					View Commit History
 				</Button>
