@@ -1,6 +1,6 @@
 {
   "siteName": "Hyperspace CMS",
   "siteDescription": "A Git-based content management system built with SvelteKit",
-  "siteUrl": "http://localhost:5173",
+  "siteUrl": "https://hyperspace-cms.netlify.app/",
   "adminEmail": "ryan@titaniumcladstudios.com"
 }
