@@ -99,15 +99,20 @@ export interface CollectionCommitOptions extends SchemaCommitOptions {
  * Save a schema
  */
 export async function saveSchema(schema: ContentSchema, options: SchemaCommitOptions = {}): Promise<void> {
+	const filePath = join(SCHEMAS_DIR, `${schema.slug}.json`);
+	const fileExisted = existsSync(filePath);
+	const payload = JSON.stringify(schema, null, 2);
+
+	// Try to write locally (for dev), but don't fail if we can't (production)
 	try {
-		const filePath = join(SCHEMAS_DIR, `${schema.slug}.json`);
-		const fileExisted = existsSync(filePath);
-		const payload = JSON.stringify(schema, null, 2);
-
 		await writeFile(filePath, payload, 'utf-8');
+	} catch (localWriteError) {
+		console.log('Local write skipped (read-only filesystem)');
+	}
 
-		const relativePath = join('content', 'schemas', `${schema.slug}.json`).replace(/\\/g, '/');
+	const relativePath = join('content', 'schemas', `${schema.slug}.json`).replace(/\\/g, '/');
 
+	try {
 		await commitChanges(
 			[
 				{
@@ -125,7 +130,7 @@ export async function saveSchema(schema: ContentSchema, options: SchemaCommitOpt
 			}
 		);
 	} catch (error) {
-		console.error(`Error saving schema ${schema.slug}:`, error);
+		console.error(`Error committing schema ${schema.slug}:`, error);
 		throw new Error('Failed to save schema');
 	}
 }
@@ -134,16 +139,20 @@ export async function saveSchema(schema: ContentSchema, options: SchemaCommitOpt
  * Delete a schema
  */
 export async function deleteSchema(slug: string, options: SchemaCommitOptions = {}): Promise<void> {
+	const filePath = join(SCHEMAS_DIR, `${slug}.json`);
+
+	if (!existsSync(filePath)) {
+		throw new Error(`Schema not found: ${slug}`);
+	}
+
+	// Try to delete locally (for dev), but don't fail if we can't (production)
 	try {
-		const filePath = join(SCHEMAS_DIR, `${slug}.json`);
-
-		if (!existsSync(filePath)) {
-			throw new Error(`Schema not found: ${slug}`);
-		}
-
 		await unlink(filePath);
+	} catch (localDeleteError) {
+		console.log('Local delete skipped (read-only filesystem)');
+	}
 
-		const relativePath = join('content', 'schemas', `${slug}.json`).replace(/\\/g, '/');
+	const relativePath = join('content', 'schemas', `${slug}.json`).replace(/\\/g, '/');
 
 		await commitChanges(
 			[
@@ -241,29 +250,31 @@ export async function saveCollectionItem(
 	item: ContentItem,
 	options: CollectionCommitOptions = {}
 ): Promise<void> {
-	try {
-		const collectionDir = join(COLLECTIONS_DIR, schemaSlug);
+	const collectionDir = join(COLLECTIONS_DIR, schemaSlug);
+	const filePath = join(collectionDir, `${item.id}.json`);
+	const fileExisted = existsSync(filePath);
+	const payload = JSON.stringify(item, null, 2);
 
-		// Ensure collection directory exists
+	// Try to write locally (for dev), but don't fail if we can't (production)
+	try {
 		if (!existsSync(collectionDir)) {
 			await mkdir(collectionDir, { recursive: true });
 			await writeFile(join(collectionDir, '.gitkeep'), '', 'utf-8');
 		}
-
-		const filePath = join(collectionDir, `${item.id}.json`);
-		const fileExisted = existsSync(filePath);
-		const payload = JSON.stringify(item, null, 2);
-
 		await writeFile(filePath, payload, 'utf-8');
+	} catch (localWriteError) {
+		console.log('Local write skipped (read-only filesystem)');
+	}
 
-		const relativePath = join('content', 'collections', schemaSlug, `${item.id}.json`).replace(
-			/\\/g,
-			'/'
-		);
+	const relativePath = join('content', 'collections', schemaSlug, `${item.id}.json`).replace(
+		/\\/g,
+		'/'
+	);
 
-		const defaultTitle = options.itemTitle || item.title || item.id;
-		const defaultMessage = fileExisted ? 'Update' : 'Create';
+	const defaultTitle = options.itemTitle || item.title || item.id;
+	const defaultMessage = fileExisted ? 'Update' : 'Create';
 
+	try {
 		await commitChanges(
 			[
 				{
@@ -281,7 +292,7 @@ export async function saveCollectionItem(
 			}
 		);
 	} catch (error) {
-		console.error(`Error saving item ${schemaSlug}/${item.id}:`, error);
+		console.error(`Error committing item ${schemaSlug}/${item.id}:`, error);
 		throw new Error('Failed to save collection item');
 	}
 }
@@ -294,22 +305,27 @@ export async function deleteCollectionItem(
 	itemId: string,
 	options: CollectionCommitOptions = {}
 ): Promise<void> {
+	const filePath = join(COLLECTIONS_DIR, schemaSlug, `${itemId}.json`);
+
+	if (!existsSync(filePath)) {
+		throw new Error(`Item not found: ${itemId}`);
+	}
+
+	const itemTitle = options.itemTitle;
+
+	// Try to delete locally (for dev), but don't fail if we can't (production)
 	try {
-		const filePath = join(COLLECTIONS_DIR, schemaSlug, `${itemId}.json`);
-
-		if (!existsSync(filePath)) {
-			throw new Error(`Item not found: ${itemId}`);
-		}
-
-		const itemTitle = options.itemTitle;
-
 		await unlink(filePath);
+	} catch (localDeleteError) {
+		console.log('Local delete skipped (read-only filesystem)');
+	}
 
-		const relativePath = join('content', 'collections', schemaSlug, `${itemId}.json`).replace(
-			/\\/g,
-			'/'
-		);
+	const relativePath = join('content', 'collections', schemaSlug, `${itemId}.json`).replace(
+		/\\/g,
+		'/'
+	);
 
+	try {
 		await commitChanges(
 			[
 				{

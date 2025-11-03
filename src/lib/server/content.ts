@@ -110,13 +110,18 @@ export async function savePage(
 
 	const payload = JSON.stringify(content, null, 2);
 
+	// Try to write locally (for dev), but don't fail if we can't (production)
 	try {
 		await writeFile(filePath, payload, 'utf-8');
+	} catch (localWriteError) {
+		console.log('Local write skipped (read-only filesystem)');
+	}
 
-		const relativePath = path
-			.join('content', 'pages', `${slug}.json`)
-			.replace(/\\/g, '/');
+	const relativePath = path
+		.join('content', 'pages', `${slug}.json`)
+		.replace(/\\/g, '/');
 
+	try {
 		await commitChanges(
 			[
 				{
@@ -134,7 +139,7 @@ export async function savePage(
 			}
 		);
 	} catch (error) {
-		console.error('Error saving page:', error);
+		console.error('Error committing page changes:', error);
 		throw new Error(`Failed to save page "${slug}"`);
 	}
 }
@@ -147,11 +152,18 @@ export async function deletePage(slug: string, options: PageCommitOptions = {}):
 
 	const filePath = path.join(CONTENT_DIR, `${slug}.json`);
 
+	// Try to delete locally (for dev), but don't fail if we can't (production)
 	try {
-		await unlink(filePath);
+		if (existsSync(filePath)) {
+			await unlink(filePath);
+		}
+	} catch (localDeleteError) {
+		console.log('Local delete skipped (read-only filesystem)');
+	}
 
-		const relativePath = path.join('content', 'pages', `${slug}.json`).replace(/\\/g, '/');
+	const relativePath = path.join('content', 'pages', `${slug}.json`).replace(/\\/g, '/');
 
+	try {
 		await commitChanges(
 			[
 				{
@@ -166,7 +178,7 @@ export async function deletePage(slug: string, options: PageCommitOptions = {}):
 			}
 		);
 	} catch (error) {
-		console.error('Error deleting page:', error);
+		console.error('Error committing page deletion:', error);
 		throw new Error(`Failed to delete page "${slug}"`);
 	}
 }

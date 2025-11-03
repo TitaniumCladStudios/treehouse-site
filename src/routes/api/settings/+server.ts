@@ -65,23 +65,32 @@ export const PUT: RequestHandler = async ({ request }) => {
 
 		const serialized = JSON.stringify(settings, null, 2);
 
-		// Write settings to file
-		await writeFile(SETTINGS_PATH, serialized, 'utf-8');
+		// Try to write locally (for dev), but don't fail if we can't (production)
+		try {
+			await writeFile(SETTINGS_PATH, serialized, 'utf-8');
+		} catch (localWriteError) {
+			console.log('Local write skipped (read-only filesystem)');
+		}
 
-		await commitChanges(
-			[
+		try {
+			await commitChanges(
+				[
+					{
+						type: 'upsert',
+						path: 'content/settings.json',
+						content: serialized
+					}
+				],
 				{
-					type: 'upsert',
-					path: 'content/settings.json',
-					content: serialized
+					message: commitMessage || 'Update site settings',
+					author: buildGitAuthor(authorName, authorEmail),
+					branch
 				}
-			],
-			{
-				message: commitMessage || 'Update site settings',
-				author: buildGitAuthor(authorName, authorEmail),
-				branch
-			}
-		);
+			);
+		} catch (commitError) {
+			console.error('Error committing settings:', commitError);
+			return json({ error: 'Failed to commit settings' }, { status: 500 });
+		}
 
 		return json({ success: true });
 	} catch (error) {
