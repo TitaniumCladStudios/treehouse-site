@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { readdir, stat, unlink } from 'fs/promises';
+import { readFile, writeFile, unlink } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { commitChanges, buildGitAuthor } from '$lib/server/git';
@@ -12,53 +12,47 @@ interface MediaFile {
 	createdAt: string;
 }
 
-const UPLOADS_DIR = join(process.cwd(), 'static', 'uploads');
+interface MediaManifest {
+	files: MediaFile[];
+}
+
+// Find manifest path
+function getManifestPath(): string {
+	const possiblePaths = [
+		join(process.cwd(), 'content', 'media-manifest.json'),
+		join(process.cwd(), 'build', 'content', 'media-manifest.json'),
+	];
+
+	for (const testPath of possiblePaths) {
+		if (existsSync(testPath)) {
+			return testPath;
+		}
+	}
+
+	return join(process.cwd(), 'content', 'media-manifest.json');
+}
 
 /**
  * GET /api/media
- * List all uploaded images
+ * List all uploaded images from manifest
  */
 export const GET: RequestHandler = async () => {
 	try {
-		// Check if uploads directory exists
-		if (!existsSync(UPLOADS_DIR)) {
+		const manifestPath = getManifestPath();
+
+		if (!existsSync(manifestPath)) {
 			return json({ files: [] });
 		}
 
-		// Read directory
-		const files = await readdir(UPLOADS_DIR);
-
-		// Filter out non-image files and .gitkeep
-		const imageFiles = files.filter((file) => {
-			const ext = file.toLowerCase().split('.').pop();
-			return (
-				ext &&
-				['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext) &&
-				file !== '.gitkeep'
-			);
-		});
-
-		// Get file stats
-		const mediaFiles: MediaFile[] = await Promise.all(
-			imageFiles.map(async (filename) => {
-				const filepath = join(UPLOADS_DIR, filename);
-				const stats = await stat(filepath);
-
-				return {
-					filename,
-					url: `/uploads/${filename}`,
-					size: stats.size,
-					createdAt: stats.birthtime.toISOString()
-				};
-			})
-		);
+		const manifestContent = await readFile(manifestPath, 'utf-8');
+		const manifest: MediaManifest = JSON.parse(manifestContent);
 
 		// Sort by creation date (newest first)
-		mediaFiles.sort(
+		const sortedFiles = manifest.files.sort(
 			(a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
 		);
 
-		return json({ files: mediaFiles });
+		return json({ files: sortedFiles });
 	} catch (error) {
 		console.error('Error listing media files:', error);
 		return json({ error: 'Failed to list media files' }, { status: 500 });
@@ -91,21 +85,49 @@ export const DELETE: RequestHandler = async ({ request }) => {
 			return json({ error: 'Invalid filename' }, { status: 400 });
 		}
 
-		const filepath = join(UPLOADS_DIR, filename);
+		// Read manifest
+		const manifestPath = getManifestPath();
+		let manifest: MediaManifest = { files: [] };
 
-		// Check if file exists
-		if (!existsSync(filepath)) {
+		try {
+			const manifestContent = await readFile(manifestPath, 'utf-8');
+			manifest = JSON.parse(manifestContent);
+		} catch (e) {
+			return json({ error: 'Media manifest not found' }, { status: 404 });
+		}
+
+		// Check if file exists in manifest
+		const fileIndex = manifest.files.findIndex((f) => f.filename === filename);
+		if (fileIndex === -1) {
 			return json({ error: 'File not found' }, { status: 404 });
 		}
 
-		// Delete file
-		await unlink(filepath);
+		// Remove file from manifest
+		manifest.files.splice(fileIndex, 1);
+		const manifestJson = JSON.stringify(manifest, null, 2);
 
+		// Try to delete local file (for dev), but don't fail if we can't (production)
+		try {
+			const uploadsDir = join(process.cwd(), 'static', 'uploads');
+			const filepath = join(uploadsDir, filename);
+			if (existsSync(filepath)) {
+				await unlink(filepath);
+			}
+		} catch (localDeleteError) {
+			console.log('Local delete skipped (read-only filesystem)');
+		}
+
+		// Commit both the file deletion and updated manifest
 		await commitChanges(
 			[
 				{
 					type: 'delete',
 					path: join('static', 'uploads', filename).replace(/\\/g, '/')
+				},
+				{
+					type: 'upsert',
+					path: 'content/media-manifest.json',
+					content: manifestJson
 				}
 			],
 			{

@@ -207,6 +207,35 @@ To use your own domain:
 3. **Use Netlify's CDN** - Content is distributed globally automatically
 4. **Monitor build time** - Keep content files small for faster builds
 
+## How Image Uploads Work in Production
+
+It's important to understand how image uploads work on Netlify:
+
+1. **Upload Process:**
+   - You upload an image through the CMS
+   - Image is optimized and converted to WebP
+   - Image is committed to GitHub via the API
+   - Image metadata is added to `content/media-manifest.json`
+
+2. **Rebuild Triggered:**
+   - GitHub webhook triggers a Netlify rebuild
+   - New build includes the uploaded image
+   - Image becomes accessible at `/uploads/filename.webp`
+
+3. **Important Notes:**
+   - ⚠️ **Images won't be immediately visible** - they require a rebuild (typically 1-2 minutes)
+   - This is normal for git-based CMSes
+   - You can continue working while the rebuild happens
+   - Refresh the media library after the rebuild completes
+
+4. **Why This Approach?**
+   - All content (including images) versioned in git
+   - No external storage services needed
+   - Free hosting on Netlify
+   - Full backup/restore via git
+
+**Best Practice:** Upload images in batches rather than one at a time to minimize rebuilds.
+
 ## Support
 
 If you encounter issues:

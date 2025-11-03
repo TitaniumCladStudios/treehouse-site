@@ -18,9 +18,9 @@ Thumbs.db
 !.env.example
 !.env.test
 
-# Uploads
-static/uploads/*
-!static/uploads/.gitkeep
+# Uploads - commented out so images are committed to git for production
+# static/uploads/*
+# !static/uploads/.gitkeep
 
 # Vite
 vite.config.js.timestamp-*

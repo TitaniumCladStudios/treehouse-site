@@ -1,10 +1,35 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir, writeFile, readFile } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import sharp from 'sharp';
 import { commitChanges, buildGitAuthor } from '$lib/server/git';
+
+interface MediaManifest {
+	files: Array<{
+		filename: string;
+		url: string;
+		size: number;
+		createdAt: string;
+	}>;
+}
+
+// Find manifest path
+function getManifestPath(): string {
+	const possiblePaths = [
+		join(process.cwd(), 'content', 'media-manifest.json'),
+		join(process.cwd(), 'build', 'content', 'media-manifest.json'),
+	];
+
+	for (const testPath of possiblePaths) {
+		if (existsSync(testPath)) {
+			return testPath;
+		}
+	}
+
+	return join(process.cwd(), 'content', 'media-manifest.json');
+}
 
 /**
  * POST /api/upload
@@ -45,31 +70,59 @@ export const POST: RequestHandler = async ({ request }) => {
 		const sanitizedName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_');
 		const filename = `${timestamp}_${sanitizedName}.webp`;
 
-		// Ensure uploads directory exists
-		const uploadsDir = join(process.cwd(), 'static', 'uploads');
-		if (!existsSync(uploadsDir)) {
-			await mkdir(uploadsDir, { recursive: true });
-		}
-
 		// Process image with sharp
 		const buffer = Buffer.from(await file.arrayBuffer());
-		const filepath = join(uploadsDir, filename);
-
 		const processedBuffer = await sharp(buffer)
 			.webp({
-				quality: 85, // High quality while maintaining good compression
-				effort: 6 // Higher effort = better compression (0-6, default 4)
+				quality: 85,
+				effort: 6
 			})
 			.toBuffer();
 
-		await writeFile(filepath, processedBuffer);
+		// Try to write locally (for dev), but don't fail if we can't (production)
+		try {
+			const uploadsDir = join(process.cwd(), 'static', 'uploads');
+			if (!existsSync(uploadsDir)) {
+				await mkdir(uploadsDir, { recursive: true });
+			}
+			await writeFile(join(uploadsDir, filename), processedBuffer);
+		} catch (localWriteError) {
+			console.log('Local write skipped (read-only filesystem)');
+		}
 
+		// Read and update manifest
+		const manifestPath = getManifestPath();
+		let manifest: MediaManifest = { files: [] };
+
+		try {
+			const manifestContent = await readFile(manifestPath, 'utf-8');
+			manifest = JSON.parse(manifestContent);
+		} catch (e) {
+			console.log('Creating new manifest');
+		}
+
+		// Add new file to manifest
+		manifest.files.push({
+			filename,
+			url: `/uploads/${filename}`,
+			size: processedBuffer.length,
+			createdAt: new Date().toISOString()
+		});
+
+		const manifestJson = JSON.stringify(manifest, null, 2);
+
+		// Commit both the image and updated manifest
 		await commitChanges(
 			[
 				{
 					type: 'upsert',
 					path: join('static', 'uploads', filename).replace(/\\/g, '/'),
 					content: processedBuffer
+				},
+				{
+					type: 'upsert',
+					path: 'content/media-manifest.json',
+					content: manifestJson
 				}
 			],
 			{
@@ -79,10 +132,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			}
 		);
 
-		// Return public URL
-		const publicUrl = `/uploads/${filename}`;
-
-		return json({ url: publicUrl }, { status: 201 });
+		return json({ url: `/uploads/${filename}` }, { status: 201 });
 	} catch (error) {
 		console.error('Error uploading file:', error);
 		return json({ error: 'Failed to upload file' }, { status: 500 });
