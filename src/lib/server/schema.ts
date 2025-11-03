@@ -154,6 +154,7 @@ export async function deleteSchema(slug: string, options: SchemaCommitOptions = 
 
 	const relativePath = join('content', 'schemas', `${slug}.json`).replace(/\\/g, '/');
 
+	try {
 		await commitChanges(
 			[
 				{
