@@ -1,5 +1,7 @@
 node_modules
 
+*.sh
+
 # Output
 .output
 .vercel
