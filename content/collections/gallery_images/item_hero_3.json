@@ -1,0 +1,12 @@
+{
+  "id": "item_hero_3",
+  "schemaSlug": "gallery_images",
+  "title": "Interior Ballroom",
+  "fields": {
+    "field_gallery_image": "/uploads/1768748947849_hero_ballroom.webp",
+    "field_gallery_alt": "Interior Ballroom",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

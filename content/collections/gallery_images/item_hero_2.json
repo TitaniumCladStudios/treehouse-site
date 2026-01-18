@@ -1,0 +1,12 @@
+{
+  "id": "item_hero_2",
+  "schemaSlug": "gallery_images",
+  "title": "Elegant Reception Hall",
+  "fields": {
+    "field_gallery_image": "/uploads/1768748947002_hero_reception_hall.webp",
+    "field_gallery_alt": "Elegant Reception Hall",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "nav_links",
+  "name": "Navigation Links",
+  "description": "Main navigation menu items",
+  "icon": "Menu",
+  "fields": [
+    {
+      "id": "field_nav_label",
+      "label": "Label",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Display text for the link",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_nav_anchor",
+      "label": "Anchor",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Hash anchor (e.g., #about)",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_nav_order",
+      "label": "Order",
+      "type": "number",
+      "required": true,
+      "helpText": "Sort order (lower numbers appear first)",
+      "defaultValue": "0"
+    }
+  ],
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

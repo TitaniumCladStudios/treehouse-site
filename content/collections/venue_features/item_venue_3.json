@@ -1,0 +1,13 @@
+{
+  "id": "item_venue_3",
+  "schemaSlug": "venue_features",
+  "title": "Architectural Beauty",
+  "fields": {
+    "field_venue_title": "Architectural Beauty",
+    "field_venue_description": "Timeless architecture provides stunning photo opportunities and an unforgettable ambiance for your guests.",
+    "field_venue_image": "/uploads/1768748951369_venue_architecture.webp",
+    "field_venue_alignment": "left"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

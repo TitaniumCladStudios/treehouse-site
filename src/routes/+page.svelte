@@ -1,101 +1,132 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Button } from '$lib/components/ui/button';
-	import * as Card from '$lib/components/ui/card';
+	import {
+		Navigation,
+		Hero,
+		Welcome,
+		VenueFeatures,
+		Experience,
+		Gallery,
+		Contact
+	} from '$lib/components/site';
 
 	let { data }: { data: PageData } = $props();
 
 	// Helper to get field value by ID
-	function getField(id: string) {
+	function getField(id: string): string {
 		return data.pageData?.fields.find((f) => f.id === id)?.value || '';
 	}
 
-	// Get expanded features - uses the field label "Features" converted to slug "features"
+	// Get expanded content - uses the field label converted to slug
+	const heroImages = $derived(data.pageData?.expandedFields?.hero_images || []);
 	const features = $derived(data.pageData?.expandedFields?.features || []);
+	const highlights = $derived(data.pageData?.expandedFields?.highlights || []);
+	const galleryImages = $derived(data.pageData?.expandedFields?.gallery || []);
+	const navLinks = $derived(data.pageData?.expandedFields?.nav_links || []);
+
+	// Transform expanded data to component props format
+	const heroImagesFormatted = $derived(
+		heroImages.map((img: any) => ({
+			image: img.fields?.image || '',
+			alt_text: img.fields?.alt_text || img.title || ''
+		}))
+	);
+
+	const featuresFormatted = $derived(
+		features.map((f: any) => ({
+			title: f.fields?.title || f.title || '',
+			description: f.fields?.description || '',
+			image: f.fields?.image || '',
+			alignment: f.fields?.alignment || 'left'
+		}))
+	);
+
+	const highlightsFormatted = $derived(
+		highlights.map((h: any) => ({
+			title: h.fields?.title || h.title || '',
+			description: h.fields?.description || '',
+			icon: h.fields?.icon || 'heart'
+		}))
+	);
+
+	const galleryFormatted = $derived(
+		galleryImages.map((img: any) => ({
+			image: img.fields?.image || '',
+			alt_text: img.fields?.alt_text || img.title || '',
+			span: img.fields?.column_span || img.fields?.span || '1'
+		}))
+	);
+
+	const navLinksFormatted = $derived(
+		navLinks.map((link: any) => ({
+			label: link.fields?.label || link.title || '',
+			anchor: link.fields?.anchor || '#',
+			order: parseInt(link.fields?.order) || 0
+		}))
+	);
 </script>
 
 <svelte:head>
-	<title>{data.pageData?.metadata.title || 'Home'} - Hyperspace CMS</title>
+	<title>{data.settings?.siteName || 'The Tree House'} - Wedding Venue</title>
+	<meta name="description" content={data.settings?.siteDescription || ''} />
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-b from-background to-muted/20">
-	<div class="container mx-auto px-4 py-16">
-		{#if data.error}
-			<div class="flex flex-col items-center justify-center py-12">
-				<h1 class="mb-4 text-2xl font-bold text-destructive">Error</h1>
-				<p class="text-muted-foreground">{data.error}</p>
-			</div>
-		{:else if data.pageData}
-			<!-- Hero Section -->
-			<div class="mb-16 text-center">
-				<h1 class="mb-4 text-5xl font-bold tracking-tight md:text-6xl">
-					{getField('hero_title')}
-				</h1>
-				<p class="mb-6 text-xl text-muted-foreground md:text-2xl">
-					{getField('hero_subtitle')}
-				</p>
-				<p class="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
-					{getField('hero_description')}
-				</p>
-				<div class="flex justify-center gap-4">
-					<Button href="/about" size="lg">Learn More</Button>
-					<Button href="/admin" variant="outline" size="lg">Admin Dashboard</Button>
-				</div>
-			</div>
-
-			<!-- Hero Image -->
-			{#if getField('hero_image')}
-				<div class="mb-16 flex justify-center">
-					<img
-						src={getField('hero_image')}
-						alt="Hero"
-						class="max-h-96 w-auto rounded-lg border shadow-2xl"
-					/>
-				</div>
-			{/if}
-
-			<!-- About Section -->
-			<div class="mx-auto max-w-4xl">
-				<Card.Root>
-					<Card.Header>
-						<Card.Title class="text-3xl">{getField('about_heading')}</Card.Title>
-					</Card.Header>
-					<Card.Content>
-						<p class="text-lg leading-relaxed text-muted-foreground">
-							{getField('about_text')}
-						</p>
-					</Card.Content>
-				</Card.Root>
-			</div>
-
-			<!-- Features Section -->
-			{#if Array.isArray(features) && features.length > 0}
-				<div class="mx-auto mt-16 max-w-6xl">
-					<h2 class="mb-8 text-center text-4xl font-bold">Features</h2>
-					<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-						{#each features as feature}
-							<Card.Root class="transition-shadow hover:shadow-lg">
-								<Card.Header>
-									<Card.Title>{feature.fields.feature_title}</Card.Title>
-								</Card.Header>
-								<Card.Content>
-									<p class="text-muted-foreground">
-										{feature.fields.feature_description}
-									</p>
-								</Card.Content>
-							</Card.Root>
-						{/each}
-					</div>
-				</div>
-			{/if}
-
-			<!-- Footer Info -->
-			<div class="mt-16 text-center text-sm text-muted-foreground">
-				<p>
-					This page is powered by content from the CMS. Edit it in the
-					<a href="/admin/pages/home" class="underline hover:text-foreground">admin dashboard</a>.
-				</p>
-			</div>
-		{/if}
+{#if data.error}
+	<div class="flex flex-col items-center justify-center min-h-screen py-12">
+		<h1 class="mb-4 text-2xl font-bold text-red-600">Error</h1>
+		<p class="text-stone-600">{data.error}</p>
 	</div>
-</div>
+{:else if data.pageData}
+	<Navigation siteName={data.settings?.siteName || 'The Tree House'} navLinks={navLinksFormatted} />
+
+	<Hero
+		location={getField('hero_location')}
+		title={getField('hero_title')}
+		subtitle={getField('hero_subtitle')}
+		ctaText={getField('hero_cta_text')}
+		images={heroImagesFormatted}
+	/>
+
+	<Welcome
+		label={getField('welcome_label')}
+		heading={getField('welcome_heading')}
+		paragraph1={getField('welcome_paragraph_1')}
+		paragraph2={getField('welcome_paragraph_2')}
+		ctaText={getField('welcome_cta_text')}
+	/>
+
+	<VenueFeatures
+		label={getField('features_label')}
+		heading={getField('features_heading')}
+		features={featuresFormatted}
+	/>
+
+	<Experience
+		label={getField('experience_label')}
+		heading={getField('experience_heading')}
+		description={getField('experience_description')}
+		image={getField('experience_image')}
+		highlights={highlightsFormatted}
+	/>
+
+	<Gallery
+		label={getField('gallery_label')}
+		heading={getField('gallery_heading')}
+		images={galleryFormatted}
+	/>
+
+	<Contact
+		label={getField('contact_label')}
+		heading={getField('contact_heading')}
+		description={getField('contact_description')}
+		tourHeading={getField('tour_heading')}
+		tourDescription={getField('tour_description')}
+		submitText={getField('form_submit_text')}
+		siteName={data.settings?.siteName || 'The Tree House'}
+		address={data.settings?.address || '12345 Palm Drive, Fort Myers, Florida'}
+		phone={data.settings?.phone || '(239) 555-0123'}
+		hours={data.settings?.hours || 'Mon - Sat: 9AM - 6PM'}
+		email={data.settings?.adminEmail || 'hello@thetreehouse.com'}
+		eventsEmail={data.settings?.eventsEmail || 'events@thetreehouse.com'}
+	/>
+{/if}

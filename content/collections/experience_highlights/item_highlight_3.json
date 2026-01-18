@@ -1,0 +1,12 @@
+{
+  "id": "item_highlight_3",
+  "schemaSlug": "experience_highlights",
+  "title": "Flexible Capacity",
+  "fields": {
+    "field_highlight_title": "Flexible Capacity",
+    "field_highlight_description": "Accommodate intimate gatherings to celebrations of 200+ guests",
+    "field_highlight_icon": "users"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "item_venue_1",
+  "schemaSlug": "venue_features",
+  "title": "The Grand Ballroom",
+  "fields": {
+    "field_venue_title": "The Grand Ballroom",
+    "field_venue_description": "An elegant space adorned with crystal chandeliers and soaring ceilings, perfect for your reception celebration.",
+    "field_venue_image": "/uploads/1768748949618_venue_grand_ballroom.webp",
+    "field_venue_alignment": "left"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "item_hero_4",
+  "schemaSlug": "gallery_images",
+  "title": "Garden Venue",
+  "fields": {
+    "field_gallery_image": "/uploads/1768748948825_hero_garden.webp",
+    "field_gallery_alt": "Garden Venue",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

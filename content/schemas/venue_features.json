@@ -1,0 +1,43 @@
+{
+  "slug": "venue_features",
+  "name": "Venue Features",
+  "description": "The main venue spaces showcased on the homepage",
+  "icon": "Building",
+  "fields": [
+    {
+      "id": "field_venue_title",
+      "label": "Title",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Name of the venue space (e.g., The Grand Ballroom)",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_venue_description",
+      "label": "Description",
+      "type": "longText",
+      "required": true,
+      "helpText": "Description of the venue space",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_venue_image",
+      "label": "Image",
+      "type": "image",
+      "required": true,
+      "helpText": "Photo of the venue space",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_venue_alignment",
+      "label": "Alignment",
+      "type": "select",
+      "required": true,
+      "helpText": "Layout alignment (left or right)",
+      "defaultValue": "left",
+      "options": ["left", "right"]
+    }
+  ],
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

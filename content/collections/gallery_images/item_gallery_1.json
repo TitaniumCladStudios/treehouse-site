@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_1",
+  "schemaSlug": "gallery_images",
+  "title": "Outdoor Ceremony",
+  "fields": {
+    "field_gallery_image": "/uploads/1768748953053_gallery_outdoor.webp",
+    "field_gallery_alt": "Elegant wedding venue outdoor",
+    "field_gallery_span": "2"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

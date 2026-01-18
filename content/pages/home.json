@@ -3,51 +3,185 @@
     "slug": "home",
     "title": "Home Page",
     "createdAt": "2025-10-31T00:00:00.000Z",
-    "updatedAt": "2025-11-03T12:27:10.206Z"
+    "updatedAt": "2026-01-18T00:00:00.000Z"
   },
   "fields": [
+    {
+      "id": "hero_location",
+      "label": "Hero Location",
+      "type": "shortText",
+      "value": "Fort Myers, Florida"
+    },
     {
       "id": "hero_title",
       "label": "Hero Title",
       "type": "shortText",
-      "value": "Welcome to Hyperspace CMS"
+      "value": "The Tree House"
     },
     {
       "id": "hero_subtitle",
       "label": "Hero Subtitle",
-      "type": "shortText",
-      "value": "A Git-based content management system built with SvelteKit"
-    },
-    {
-      "id": "hero_description",
-      "label": "Hero Description",
       "type": "longText",
-      "value": "Manage your website content with ease. All changes are versioned with Git, giving you complete control and history of your content updates. This page was just edited in real time!!"
+      "value": "Where timeless elegance meets natural beauty for your perfect celebration"
     },
     {
-      "id": "hero_image",
-      "label": "Hero Image",
-      "type": "image",
-      "value": "/uploads/1761930258397_ChatGPT_Image_Oct_31__2025__10_48_04_AM.webp"
-    },
-    {
-      "id": "about_heading",
-      "label": "About Section Heading",
+      "id": "hero_cta_text",
+      "label": "Hero CTA Text",
       "type": "shortText",
-      "value": "Why Choose Hyperspace?"
+      "value": "Schedule a Visit"
     },
     {
-      "id": "about_text",
-      "label": "About Section Text",
+      "id": "hero_images",
+      "label": "Hero Images",
+      "type": "contentReference",
+      "value": "item_hero_1,item_hero_2,item_hero_3,item_hero_4",
+      "referenceSchema": "gallery_images",
+      "multiple": true
+    },
+    {
+      "id": "welcome_label",
+      "label": "Welcome Label",
+      "type": "shortText",
+      "value": "Welcome"
+    },
+    {
+      "id": "welcome_heading",
+      "label": "Welcome Heading",
+      "type": "shortText",
+      "value": "Your Love Story Begins Here"
+    },
+    {
+      "id": "welcome_paragraph_1",
+      "label": "Welcome Paragraph 1",
       "type": "longText",
-      "value": "Hyperspace CMS combines the simplicity of flat-file content management with the power of Git version control. No database required, just JSON files that live alongside your code. And this section has been edited! And it has been edited again! And new edits create git commits to persist changes! And now it's on Netlify!"
+      "value": "Nestled in the heart of Fort Myers, The Tree House offers an enchanting backdrop for your most treasured moments. Our venue seamlessly blends sophisticated elegance with the warmth of natural surroundings, creating an atmosphere that is both refined and inviting."
     },
     {
-      "id": "field_1761932281692",
+      "id": "welcome_paragraph_2",
+      "label": "Welcome Paragraph 2",
+      "type": "longText",
+      "value": "From intimate gatherings to grand celebrations, we provide a canvas where your dreams take shape. Every detail has been thoughtfully curated to ensure your special day unfolds with grace, beauty, and unforgettable joy."
+    },
+    {
+      "id": "welcome_cta_text",
+      "label": "Welcome CTA Text",
+      "type": "shortText",
+      "value": "Explore the Venue"
+    },
+    {
+      "id": "features_label",
+      "label": "Features Label",
+      "type": "shortText",
+      "value": "Our Spaces"
+    },
+    {
+      "id": "features_heading",
+      "label": "Features Heading",
+      "type": "shortText",
+      "value": "Discover The Tree House"
+    },
+    {
+      "id": "features",
       "label": "Features",
       "type": "contentReference",
-      "value": "item_1761931340595,item_1761931391440,item_1761931439662,item_1761931528767",
-      "referenceSchema": "features",
+      "value": "item_venue_1,item_venue_2,item_venue_3",
+      "referenceSchema": "venue_features",
+      "multiple": true
+    },
+    {
+      "id": "experience_label",
+      "label": "Experience Label",
+      "type": "shortText",
+      "value": "The Experience"
+    },
+    {
+      "id": "experience_heading",
+      "label": "Experience Heading",
+      "type": "shortText",
+      "value": "Every Detail, Perfected"
+    },
+    {
+      "id": "experience_description",
+      "label": "Experience Description",
+      "type": "longText",
+      "value": "At The Tree House, we believe your wedding day should be as unique as your love story. Our commitment to excellence ensures that every moment is crafted with care, elegance, and joy."
+    },
+    {
+      "id": "experience_image",
+      "label": "Experience Image",
+      "type": "image",
+      "value": "/uploads/1768748952239_experience_bride.webp"
+    },
+    {
+      "id": "highlights",
+      "label": "Highlights",
+      "type": "contentReference",
+      "value": "item_highlight_1,item_highlight_2,item_highlight_3",
+      "referenceSchema": "experience_highlights",
+      "multiple": true
+    },
+    {
+      "id": "gallery_label",
+      "label": "Gallery Label",
+      "type": "shortText",
+      "value": "Gallery"
+    },
+    {
+      "id": "gallery_heading",
+      "label": "Gallery Heading",
+      "type": "shortText",
+      "value": "Moments of Beauty"
+    },
+    {
+      "id": "gallery",
+      "label": "Gallery",
+      "type": "contentReference",
+      "value": "item_gallery_1,item_gallery_2,item_gallery_3,item_gallery_4,item_gallery_5",
+      "referenceSchema": "gallery_images",
+      "multiple": true
+    },
+    {
+      "id": "contact_label",
+      "label": "Contact Label",
+      "type": "shortText",
+      "value": "Get in Touch"
+    },
+    {
+      "id": "contact_heading",
+      "label": "Contact Heading",
+      "type": "shortText",
+      "value": "Plan Your Perfect Day"
+    },
+    {
+      "id": "contact_description",
+      "label": "Contact Description",
+      "type": "longText",
+      "value": "We would love to hear from you. Whether you're ready to book a tour or simply have questions about our venue, our team is here to help make your wedding dreams a reality."
+    },
+    {
+      "id": "tour_heading",
+      "label": "Tour Heading",
+      "type": "shortText",
+      "value": "Book a Private Tour"
+    },
+    {
+      "id": "tour_description",
+      "label": "Tour Description",
+      "type": "longText",
+      "value": "Experience the magic of The Tree House in person. Our venue coordinators are available to give you a personalized tour and answer all your questions."
+    },
+    {
+      "id": "form_submit_text",
+      "label": "Form Submit Text",
+      "type": "shortText",
+      "value": "Send Inquiry"
+    },
+    {
+      "id": "nav_links",
+      "label": "Navigation Links",
+      "type": "contentReference",
+      "value": "item_nav_1,item_nav_2,item_nav_3,item_nav_4,item_nav_5",
+      "referenceSchema": "nav_links",
       "multiple": true
     }
   ]

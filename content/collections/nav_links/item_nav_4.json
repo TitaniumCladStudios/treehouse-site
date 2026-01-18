@@ -1,0 +1,12 @@
+{
+  "id": "item_nav_4",
+  "schemaSlug": "nav_links",
+  "title": "Gallery",
+  "fields": {
+    "field_nav_label": "GALLERY",
+    "field_nav_anchor": "#gallery",
+    "field_nav_order": 4
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

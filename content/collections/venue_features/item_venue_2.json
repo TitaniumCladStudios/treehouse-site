@@ -1,0 +1,13 @@
+{
+  "id": "item_venue_2",
+  "schemaSlug": "venue_features",
+  "title": "Garden Ceremony",
+  "fields": {
+    "field_venue_title": "Garden Ceremony",
+    "field_venue_description": "Say your vows surrounded by lush greenery and natural light, creating an intimate and romantic atmosphere.",
+    "field_venue_image": "/uploads/1768748950310_venue_garden_ceremony.webp",
+    "field_venue_alignment": "right"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "experience_highlights",
+  "name": "Experience Highlights",
+  "description": "Key highlights shown in the Experience section",
+  "icon": "Sparkles",
+  "fields": [
+    {
+      "id": "field_highlight_title",
+      "label": "Title",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Highlight title (e.g., Personalized Service)",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_highlight_description",
+      "label": "Description",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Brief description of the highlight",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_highlight_icon",
+      "label": "Icon",
+      "type": "select",
+      "required": true,
+      "helpText": "Lucide icon name",
+      "defaultValue": "heart",
+      "options": ["heart", "sparkles", "users"]
+    }
+  ],
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

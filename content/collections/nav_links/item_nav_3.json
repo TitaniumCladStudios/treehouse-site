@@ -1,0 +1,12 @@
+{
+  "id": "item_nav_3",
+  "schemaSlug": "nav_links",
+  "title": "Venue",
+  "fields": {
+    "field_nav_label": "VENUE",
+    "field_nav_anchor": "#venue",
+    "field_nav_order": 3
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "gallery_images",
+  "name": "Gallery Images",
+  "description": "Images for the gallery section and hero carousel",
+  "icon": "Image",
+  "fields": [
+    {
+      "id": "field_gallery_image",
+      "label": "Image",
+      "type": "image",
+      "required": true,
+      "helpText": "Gallery photo",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_gallery_alt",
+      "label": "Alt Text",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Image description for accessibility",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_gallery_span",
+      "label": "Column Span",
+      "type": "select",
+      "required": false,
+      "helpText": "How many columns this image spans in the gallery grid",
+      "defaultValue": "1",
+      "options": ["1", "2"]
+    }
+  ],
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

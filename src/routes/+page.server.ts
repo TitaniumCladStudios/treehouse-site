@@ -1,19 +1,68 @@
 import type { PageServerLoad } from './$types';
 import { readPage } from '$lib/server/content';
 import { expandPageReferences } from '$lib/server/content-expander';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+import { existsSync } from 'fs';
+import type { SiteSettings } from '$lib/types/content';
+
+// Find settings path
+function getSettingsPath(): string {
+	const possiblePaths = [
+		join(process.cwd(), 'content', 'settings.json'),
+		join(process.cwd(), 'build', 'content', 'settings.json')
+	];
+
+	for (const testPath of possiblePaths) {
+		if (existsSync(testPath)) {
+			return testPath;
+		}
+	}
+
+	return join(process.cwd(), 'content', 'settings.json');
+}
 
 export const load: PageServerLoad = async () => {
+	// Default settings fallback
+	const defaultSettings: SiteSettings = {
+		siteName: 'The Tree House',
+		siteDescription: 'Where timeless elegance meets natural beauty',
+		siteUrl: 'https://thetreehouse.com',
+		adminEmail: 'hello@thetreehouse.com'
+	};
+
+	let settings: SiteSettings & {
+		phone?: string;
+		address?: string;
+		hours?: string;
+		eventsEmail?: string;
+	} = defaultSettings;
+
+	// Load settings
+	try {
+		const settingsPath = getSettingsPath();
+		if (existsSync(settingsPath)) {
+			const settingsContent = await readFile(settingsPath, 'utf-8');
+			settings = JSON.parse(settingsContent);
+		}
+	} catch (error) {
+		console.error('Error loading settings:', error);
+	}
+
+	// Load page content
 	try {
 		const page = await readPage('home');
 		const expandedPage = await expandPageReferences(page);
 
 		return {
-			pageData: expandedPage
+			pageData: expandedPage,
+			settings
 		};
 	} catch (error) {
 		console.error('Error loading home page:', error);
 		return {
 			pageData: null,
+			settings,
 			error: 'Failed to load page content'
 		};
 	}

@@ -1,6 +1,10 @@
 {
-  "siteName": "Hyperspace CMS",
-  "siteDescription": "A Git-based content management system built with SvelteKit",
-  "siteUrl": "https://hyperspace-cms.netlify.app/",
-  "adminEmail": "ryan@titaniumcladstudios.com"
+  "siteName": "The Tree House",
+  "siteDescription": "Where timeless elegance meets natural beauty for your perfect celebration",
+  "siteUrl": "https://thetreehouse.com/",
+  "adminEmail": "hello@thetreehouse.com",
+  "phone": "(239) 555-0123",
+  "address": "12345 Palm Drive, Fort Myers, Florida",
+  "hours": "Mon - Sat: 9AM - 6PM",
+  "eventsEmail": "events@thetreehouse.com"
 }

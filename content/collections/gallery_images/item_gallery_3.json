@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_3",
+  "schemaSlug": "gallery_images",
+  "title": "Celebration",
+  "fields": {
+    "field_gallery_image": "/uploads/1768748953758_gallery_celebration.webp",
+    "field_gallery_alt": "Wedding celebration dancing",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

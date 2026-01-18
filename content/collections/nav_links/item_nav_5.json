@@ -1,0 +1,12 @@
+{
+  "id": "item_nav_5",
+  "schemaSlug": "nav_links",
+  "title": "Contact",
+  "fields": {
+    "field_nav_label": "CONTACT",
+    "field_nav_anchor": "#contact",
+    "field_nav_order": 5
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}

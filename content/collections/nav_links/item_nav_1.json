@@ -1,0 +1,12 @@
+{
+  "id": "item_nav_1",
+  "schemaSlug": "nav_links",
+  "title": "Home",
+  "fields": {
+    "field_nav_label": "HOME",
+    "field_nav_anchor": "#home",
+    "field_nav_order": 1
+  },
+  "createdAt": "2026-01-18T00:00:00.000Z",
+  "updatedAt": "2026-01-18T00:00:00.000Z"
+}
