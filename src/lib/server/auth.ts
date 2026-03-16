@@ -11,7 +11,8 @@ interface SessionData {
 }
 
 /**
- * Verify a password against the admin password hash from environment
+ * Verify a password against the admin password hash from environment.
+ * The hash is stored as base64 to avoid shell escaping issues with bcrypt's $ characters.
  */
 export async function verifyPassword(password: string): Promise<boolean> {
 	if (!ADMIN_PASSWORD_HASH) {
@@ -20,7 +21,8 @@ export async function verifyPassword(password: string): Promise<boolean> {
 	}
 
 	try {
-		const result = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+		const hash = Buffer.from(ADMIN_PASSWORD_HASH, 'base64').toString('utf-8');
+		const result = await bcrypt.compare(password, hash);
 		return result;
 	} catch (error) {
 		console.error('Password verification error:', error);
