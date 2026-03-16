@@ -1,13 +1,13 @@
 {
   "id": "item_venue_3",
   "schemaSlug": "venue_features",
-  "title": "Architectural Beauty",
+  "title": "A Destination Without the Distance",
   "fields": {
-    "field_venue_title": "Architectural Beauty",
-    "field_venue_description": "Timeless architecture provides stunning photo opportunities and an unforgettable ambiance for your guests.",
-    "field_venue_image": "/uploads/1768748951369_venue_architecture.webp",
+    "field_venue_title": "A Destination Without the Distance",
+    "field_venue_description": "We're perfectly positioned in the heart of Downtown Fort Myers, a charming and bustling small town filled with energy and character. Your guests are minutes away from waterfront nightlife, local rooftop bars, and an incredible mix of restaurants. Your wedding doesn't end when the reception does — it flows seamlessly into a full weekend experience.",
+    "field_venue_image": "/uploads/1773660192403_venue_exterior.webp",
     "field_venue_alignment": "left"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_9",
+  "schemaSlug": "gallery_images",
+  "title": "Bridal Dress Vintage",
+  "fields": {
+    "field_gallery_image": "/uploads/1773660192403_bridal_dress_vintage.webp",
+    "field_gallery_alt": "Wedding dress draped over a vintage chair",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

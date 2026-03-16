@@ -1,12 +1,12 @@
 {
   "id": "item_hero_1",
   "schemaSlug": "gallery_images",
-  "title": "Outdoor Ceremony Space",
+  "title": "Banyan Tree Wide",
   "fields": {
-    "field_gallery_image": "/uploads/1768748946209_hero_outdoor_ceremony.webp",
-    "field_gallery_alt": "Outdoor Ceremony Space",
+    "field_gallery_image": "/uploads/1773660192403_banyan_tree_wide.webp",
+    "field_gallery_alt": "The iconic 200-year-old banyan tree at The Tree House venue",
     "field_gallery_span": "1"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

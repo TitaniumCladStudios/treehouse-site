@@ -1,12 +1,12 @@
 {
   "id": "item_hero_4",
   "schemaSlug": "gallery_images",
-  "title": "Garden Venue",
+  "title": "Speakeasy Bar Interior",
   "fields": {
-    "field_gallery_image": "/uploads/1768748948825_hero_garden.webp",
-    "field_gallery_alt": "Garden Venue",
+    "field_gallery_image": "/uploads/1773660192403_speakeasy_bar_interior.webp",
+    "field_gallery_alt": "The vintage speakeasy bar interior at The Tree House",
     "field_gallery_span": "1"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

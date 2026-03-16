@@ -1,12 +1,12 @@
 {
   "id": "item_hero_2",
   "schemaSlug": "gallery_images",
-  "title": "Elegant Reception Hall",
+  "title": "Venue String Lights at Night",
   "fields": {
-    "field_gallery_image": "/uploads/1768748947002_hero_reception_hall.webp",
-    "field_gallery_alt": "Elegant Reception Hall",
+    "field_gallery_image": "/uploads/1773660192403_venue_string_lights_night.webp",
+    "field_gallery_alt": "The Tree House venue glowing under string lights at night",
     "field_gallery_span": "1"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

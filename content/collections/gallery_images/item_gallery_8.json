@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_8",
+  "schemaSlug": "gallery_images",
+  "title": "Garden Lights Evening",
+  "fields": {
+    "field_gallery_image": "/uploads/1773660192403_garden_lights_evening.webp",
+    "field_gallery_alt": "Garden pathway illuminated by warm lights in the evening",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

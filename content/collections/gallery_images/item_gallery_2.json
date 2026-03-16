@@ -1,12 +1,12 @@
 {
   "id": "item_gallery_2",
   "schemaSlug": "gallery_images",
-  "title": "Reception Details",
+  "title": "Reception Table Setting",
   "fields": {
-    "field_gallery_image": "/uploads/1768748949618_venue_grand_ballroom.webp",
-    "field_gallery_alt": "Luxury wedding reception tables",
+    "field_gallery_image": "/uploads/1773660192403_reception_table_setting.webp",
+    "field_gallery_alt": "Elegant reception table with greenery centerpiece and candlelight",
     "field_gallery_span": "1"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

@@ -1,0 +1,14 @@
+{
+  "id": "item_member_5",
+  "schemaSlug": "team_members",
+  "title": "Adam",
+  "fields": {
+    "field_member_name": "Adam",
+    "field_member_role": "The Man Behind the Scenes.",
+    "field_member_bio": "Adam is the creative force behind our homemade rubs and sauces, crafted in his spare time while running his own business over in Cape Coral. His flavors add soul to our food and heart to every gathering.",
+    "field_member_image": "",
+    "field_member_order": 5
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

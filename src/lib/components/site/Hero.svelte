@@ -75,7 +75,7 @@
 		<div class="max-w-4xl mx-auto space-y-6">
 			<div class="space-y-2">
 				<p class="text-sm tracking-[0.3em] uppercase opacity-90">{location}</p>
-				<h1 class="text-5xl md:text-7xl lg:text-8xl tracking-wide">
+				<h1 class="font-cursive text-6xl md:text-8xl lg:text-9xl">
 					{title}
 				</h1>
 			</div>
@@ -96,7 +96,7 @@
 
 	<!-- Scroll Indicator -->
 	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-		<a href="#about" class="text-white animate-bounce block">
+		<a href="#welcome" class="text-white animate-bounce block">
 			<ChevronDown size={32} />
 		</a>
 	</div>

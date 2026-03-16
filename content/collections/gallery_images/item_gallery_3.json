@@ -1,12 +1,12 @@
 {
   "id": "item_gallery_3",
   "schemaSlug": "gallery_images",
-  "title": "Celebration",
+  "title": "Couple in Garden",
   "fields": {
-    "field_gallery_image": "/uploads/1768748953758_gallery_celebration.webp",
-    "field_gallery_alt": "Wedding celebration dancing",
+    "field_gallery_image": "/uploads/1773660192403_couple_garden_bw.webp",
+    "field_gallery_alt": "Bride and groom sharing an intimate moment in the garden",
     "field_gallery_span": "1"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

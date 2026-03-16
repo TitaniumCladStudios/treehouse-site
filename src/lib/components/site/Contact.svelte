@@ -192,7 +192,7 @@
 <!-- Footer -->
 <footer class="py-12 bg-stone-50 border-t border-stone-200">
 	<div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-		<p class="text-lg tracking-[0.2em] uppercase text-stone-800 mb-4">
+		<p class="font-cursive text-2xl text-stone-800 mb-4">
 			{siteName}
 		</p>
 		<p class="text-sm text-stone-500">

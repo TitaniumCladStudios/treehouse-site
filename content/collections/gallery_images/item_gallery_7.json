@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_7",
+  "schemaSlug": "gallery_images",
+  "title": "Ceremony Arch with Flowers",
+  "fields": {
+    "field_gallery_image": "/uploads/1773660192403_ceremony_arch_flowers.webp",
+    "field_gallery_alt": "Floral ceremony arch in the garden setting",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

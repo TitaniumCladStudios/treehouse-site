@@ -1,13 +1,13 @@
 {
   "id": "item_venue_2",
   "schemaSlug": "venue_features",
-  "title": "Garden Ceremony",
+  "title": "Garden by Day. Speakeasy by Night.",
   "fields": {
-    "field_venue_title": "Garden Ceremony",
-    "field_venue_description": "Say your vows surrounded by lush greenery and natural light, creating an intimate and romantic atmosphere.",
-    "field_venue_image": "/uploads/1768748950310_venue_garden_ceremony.webp",
+    "field_venue_title": "Garden by Day. Speakeasy by Night.",
+    "field_venue_description": "As the sun sets, the venue transforms. What begins as a romantic garden celebration evolves into a 1920s-inspired vintage speakeasy — glowing under twinkling café lights, chandeliers, and the stars above. The atmosphere becomes intimate, moody, and electric. It's magical. It's unexpected. And it's unforgettable.",
+    "field_venue_image": "/uploads/1773660192403_speakeasy_entrance.webp",
     "field_venue_alignment": "right"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

@@ -1,0 +1,14 @@
+{
+  "id": "item_member_6",
+  "schemaSlug": "team_members",
+  "title": "Shannon",
+  "fields": {
+    "field_member_name": "Shannon",
+    "field_member_role": "Mama Don. The Visionary. The Heart.",
+    "field_member_bio": "Shannon is the mind behind the Tree House itself. She dreamed it, shaped it, and brought it to life. Known lovingly as our Mama Don, Shannon makes sure every couple feels welcomed, comfortable, and truly at home the moment they arrive. Her goal is simple: for you to feel like you belong here.",
+    "field_member_image": "",
+    "field_member_order": 6
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

@@ -1,12 +1,12 @@
 {
   "id": "item_gallery_4",
   "schemaSlug": "gallery_images",
-  "title": "Venue Architecture",
+  "title": "Bride Getting Ready",
   "fields": {
-    "field_gallery_image": "/uploads/1768748951369_venue_architecture.webp",
-    "field_gallery_alt": "Romantic wedding venue architecture",
+    "field_gallery_image": "/uploads/1773660192403_bride_getting_ready_bw.webp",
+    "field_gallery_alt": "Bride preparing for her special day with chandelier in background",
     "field_gallery_span": "1"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

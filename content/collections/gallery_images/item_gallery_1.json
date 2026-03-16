@@ -1,12 +1,12 @@
 {
   "id": "item_gallery_1",
   "schemaSlug": "gallery_images",
-  "title": "Outdoor Ceremony",
+  "title": "Banyan Ceremony Setup",
   "fields": {
-    "field_gallery_image": "/uploads/1768748953053_gallery_outdoor.webp",
-    "field_gallery_alt": "Elegant wedding venue outdoor",
+    "field_gallery_image": "/uploads/1773660192403_banyan_ceremony_setup.webp",
+    "field_gallery_alt": "Wedding ceremony setup beneath the banyan tree with white chairs and floral arch",
     "field_gallery_span": "2"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

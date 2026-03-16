@@ -22,7 +22,7 @@
 	const features = $derived(data.pageData?.expandedFields?.features || []);
 	const highlights = $derived(data.pageData?.expandedFields?.highlights || []);
 	const galleryImages = $derived(data.pageData?.expandedFields?.gallery || []);
-	const navLinks = $derived(data.pageData?.expandedFields?.nav_links || []);
+	const navLinks = $derived(data.pageData?.expandedFields?.navigation_links || []);
 
 	// Transform expanded data to component props format
 	const heroImagesFormatted = $derived(

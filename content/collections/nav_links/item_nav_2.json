@@ -4,9 +4,9 @@
   "title": "About",
   "fields": {
     "field_nav_label": "ABOUT",
-    "field_nav_anchor": "#about",
+    "field_nav_anchor": "/about",
     "field_nav_order": 2
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

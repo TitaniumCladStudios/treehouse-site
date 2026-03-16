@@ -1,0 +1,14 @@
+{
+  "id": "item_member_3",
+  "schemaSlug": "team_members",
+  "title": "Triscia",
+  "fields": {
+    "field_member_name": "Triscia",
+    "field_member_role": "The Calm in the Chaos.",
+    "field_member_bio": "Triscia is our wedding coordinator and planner — the one who is here, there, and everywhere on your big day. She manages vendors, décor, timelines, and all the behind-the-scenes details, while making sure the bride is always smiling and stress-free. If something needs to happen, Triscia already made it happen.",
+    "field_member_image": "",
+    "field_member_order": 3
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

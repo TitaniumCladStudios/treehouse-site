@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import { Menu, X, Download } from 'lucide-svelte';
 
 	interface NavLink {
@@ -20,6 +21,17 @@
 
 	// Sort nav links by order
 	let sortedLinks = $derived([...navLinks].sort((a, b) => a.order - b.order));
+
+	// Determine if we're on the homepage
+	let isHomePage = $derived($page.url.pathname === '/');
+
+	// Resolve link href: anchor links get prefixed with "/" when not on homepage
+	function getHref(anchor: string): string {
+		if (anchor.startsWith('#') && !isHomePage) {
+			return '/' + anchor;
+		}
+		return anchor;
+	}
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -44,8 +56,8 @@
 		<div class="flex items-center justify-between h-20">
 			<!-- Logo -->
 			<a
-				href="#home"
-				class="text-lg tracking-[0.2em] uppercase {isScrolled ? 'text-stone-800' : 'text-white'}"
+				href={isHomePage ? '#home' : '/'}
+				class="font-cursive text-2xl {isScrolled ? 'text-stone-800' : 'text-white'}"
 			>
 				{siteName}
 			</a>
@@ -54,7 +66,7 @@
 			<div class="hidden xl:flex items-center gap-8">
 				{#each sortedLinks as link}
 					<a
-						href={link.anchor}
+						href={getHref(link.anchor)}
 						class="text-sm tracking-wider transition-colors {isScrolled
 							? 'text-stone-600 hover:text-stone-800'
 							: 'text-white/90 hover:text-white'}"
@@ -63,7 +75,7 @@
 					</a>
 				{/each}
 				<a
-					href="#contact"
+					href={isHomePage ? '#contact' : '/#contact'}
 					class="flex items-center gap-2 px-6 py-2 text-sm tracking-wider transition-colors {isScrolled
 						? 'bg-stone-800 text-white hover:bg-stone-700'
 						: 'bg-white text-stone-800 hover:bg-stone-100'}"
@@ -94,7 +106,7 @@
 			<div class="px-6 py-4 space-y-4">
 				{#each sortedLinks as link}
 					<a
-						href={link.anchor}
+						href={getHref(link.anchor)}
 						class="block text-sm tracking-wider text-stone-600 hover:text-stone-800"
 						onclick={closeMobileMenu}
 					>
@@ -102,7 +114,7 @@
 					</a>
 				{/each}
 				<a
-					href="#contact"
+					href={isHomePage ? '#contact' : '/#contact'}
 					class="flex items-center gap-2 px-6 py-3 bg-stone-800 text-white text-sm tracking-wider justify-center"
 					onclick={closeMobileMenu}
 				>

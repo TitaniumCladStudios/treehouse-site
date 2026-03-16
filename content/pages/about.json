@@ -3,44 +3,72 @@
     "slug": "about",
     "title": "About Us",
     "createdAt": "2025-10-31T14:45:00.000Z",
-    "updatedAt": "2025-11-03T15:05:40.518Z"
+    "updatedAt": "2026-03-16T00:00:00.000Z"
   },
   "fields": [
     {
-      "id": "page_title",
-      "label": "Page Title",
+      "id": "hero_title",
+      "label": "Hero Title",
       "type": "shortText",
-      "value": "About Hyperspace CMS"
+      "value": "About Us"
+    },
+    {
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "type": "shortText",
+      "value": "Family-Owned. Family-Operated. Family at Heart."
+    },
+    {
+      "id": "hero_image",
+      "label": "Hero Image",
+      "type": "image",
+      "value": "/uploads/1773660192403_garden_seating_area.webp"
     },
     {
       "id": "intro_text",
       "label": "Introduction",
       "type": "longText",
-      "value": "Hyperspace CMS is a modern content management system built for developers who want the flexibility of code with the convenience of a CMS. Every change is tracked in Git, making it perfect for teams who value version control."
+      "value": "At the heart of our venue is family — real family. We are proudly family-owned and family-operated, and we treat every couple who walks through our gates like they're part of ours. Your wedding day should feel stress-free, joyful, and full of love — and that's exactly what we make sure it is."
     },
     {
-      "id": "mission_heading",
-      "label": "Mission Heading",
-      "type": "shortText",
-      "value": "Our Mission"
-    },
-    {
-      "id": "mission_text",
-      "label": "Mission Statement",
+      "id": "intro_text_2",
+      "label": "Introduction Continued",
       "type": "longText",
-      "value": "To provide developers with a powerful, flexible content management system that doesn't compromise on simplicity or control. We believe in keeping content close to code, version controlled, and easily deployable."
+      "value": "From the first tour to the last song of the night, we take pride in every detail, every moment, and every memory created here. We're not just hosting your wedding. We're celebrating it with you."
     },
     {
-      "id": "features_heading",
-      "label": "Features Heading",
+      "id": "team_heading",
+      "label": "Team Heading",
       "type": "shortText",
-      "value": "Key Features"
+      "value": "Meet the Family Behind the Feeling"
     },
     {
-      "id": "features_list",
-      "label": "Features Description",
+      "id": "team_members",
+      "label": "Team Members",
+      "type": "contentReference",
+      "value": "item_member_1,item_member_2,item_member_3,item_member_4,item_member_5,item_member_6",
+      "referenceSchema": "team_members",
+      "multiple": true
+    },
+    {
+      "id": "closing_heading",
+      "label": "Closing Heading",
+      "type": "shortText",
+      "value": "More Than a Venue"
+    },
+    {
+      "id": "closing_text",
+      "label": "Closing Text",
       "type": "longText",
-      "value": "Git-based version control • No database required • Admin dashboard • Dynamic content fields • Image uploads • TypeScript support • Built with SvelteKit"
+      "value": "The Tree House is not just a space. It's a feeling. It's where couples laugh, celebrate, dance under the lights, and begin their forever surrounded by history, heart, and family. From our family to yours — this is where your story starts."
+    },
+    {
+      "id": "nav_links",
+      "label": "Navigation Links",
+      "type": "contentReference",
+      "value": "item_nav_1,item_nav_2,item_nav_3,item_nav_4,item_nav_5",
+      "referenceSchema": "nav_links",
+      "multiple": true
     }
   ]
 }

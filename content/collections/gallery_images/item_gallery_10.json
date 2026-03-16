@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_10",
+  "schemaSlug": "gallery_images",
+  "title": "Dance Floor Lights",
+  "fields": {
+    "field_gallery_image": "/uploads/1773660192403_dance_floor_lights.webp",
+    "field_gallery_alt": "Dance floor glowing under string lights at The Tree House",
+    "field_gallery_span": "2"
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

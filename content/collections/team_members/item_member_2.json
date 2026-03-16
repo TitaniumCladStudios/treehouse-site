@@ -1,0 +1,14 @@
+{
+  "id": "item_member_2",
+  "schemaSlug": "team_members",
+  "title": "Christopher",
+  "fields": {
+    "field_member_name": "Christopher",
+    "field_member_role": "The Right-Hand Man (and Hopeless Romantic).",
+    "field_member_bio": "Fresh from California, Christopher is Cody's right-hand helper and an integral part of our event team. He loves working weddings — partly for the energy, partly for the romance, and maybe (just maybe) in hopes of meeting a gal of his own someday.",
+    "field_member_image": "",
+    "field_member_order": 2
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

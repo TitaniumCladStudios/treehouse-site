@@ -10,6 +10,9 @@ node_modules
 /.svelte-kit
 /build
 
+# Comms
+/comms
+
 # OS
 .DS_Store
 Thumbs.db

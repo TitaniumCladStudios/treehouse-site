@@ -1,13 +1,13 @@
 {
   "id": "item_venue_1",
   "schemaSlug": "venue_features",
-  "title": "The Grand Ballroom",
+  "title": "The Banyan Tree Ceremony",
   "fields": {
-    "field_venue_title": "The Grand Ballroom",
-    "field_venue_description": "An elegant space adorned with crystal chandeliers and soaring ceilings, perfect for your reception celebration.",
-    "field_venue_image": "/uploads/1768748949618_venue_grand_ballroom.webp",
+    "field_venue_title": "The Banyan Tree Ceremony",
+    "field_venue_description": "Say \"I do\" beneath the sweeping branches of a living landmark. Our iconic banyan tree has stood for over two centuries and serves as a one-of-a-kind ceremony site you simply won't find anywhere else. Sunlight filters through the leaves by day, while timeless elegance surrounds you at every turn. This isn't just a backdrop — it's a moment rooted in history.",
+    "field_venue_image": "/uploads/1773660192403_banyan_ceremony_setup.webp",
     "field_venue_alignment": "left"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

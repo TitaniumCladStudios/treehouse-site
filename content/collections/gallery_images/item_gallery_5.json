@@ -1,12 +1,12 @@
 {
   "id": "item_gallery_5",
   "schemaSlug": "gallery_images",
-  "title": "Garden Setting",
+  "title": "Garden Evening Ambiance",
   "fields": {
-    "field_gallery_image": "/uploads/1768748950310_venue_garden_ceremony.webp",
-    "field_gallery_alt": "Wedding ceremony outdoor garden",
+    "field_gallery_image": "/uploads/1773660192403_venue_garden_evening.webp",
+    "field_gallery_alt": "The Tree House garden venue in evening light",
     "field_gallery_span": "2"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

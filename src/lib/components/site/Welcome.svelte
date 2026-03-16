@@ -10,7 +10,7 @@
 	let { label, heading, paragraph1, paragraph2, ctaText }: Props = $props();
 </script>
 
-<section id="about" class="py-24 md:py-32 bg-stone-50">
+<section id="welcome" class="py-24 md:py-32 bg-stone-50">
 	<div class="max-w-3xl mx-auto px-6 text-center">
 		<p class="text-sm tracking-[0.3em] uppercase text-stone-500 mb-4">{label}</p>
 		<h2 class="text-4xl md:text-5xl text-stone-800 tracking-wide mb-8">

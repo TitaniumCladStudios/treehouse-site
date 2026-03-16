@@ -1,12 +1,12 @@
 {
   "id": "item_highlight_1",
   "schemaSlug": "experience_highlights",
-  "title": "Personalized Service",
+  "title": "Timeless Atmosphere",
   "fields": {
-    "field_highlight_title": "Personalized Service",
-    "field_highlight_description": "Dedicated event coordinators to bring your vision to life",
+    "field_highlight_title": "Timeless Atmosphere",
+    "field_highlight_description": "Candlelight, jazz-era romance, and secret-garden charm",
     "field_highlight_icon": "heart"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }

@@ -1,0 +1,14 @@
+{
+  "id": "item_member_1",
+  "schemaSlug": "team_members",
+  "title": "Cody",
+  "fields": {
+    "field_member_name": "Cody",
+    "field_member_role": "The Backbone. The Builder. The Pitmaster.",
+    "field_member_bio": "Cody is our all-around maintenance guru, groundskeeper, carpenter, and master of slow-and-low meats. If it needs fixing, building, grilling, or protecting — Cody's your guy. He's the handsome brawn who proudly watches over his mama and sister, making sure the Tree House always looks its best and runs smoothly.",
+    "field_member_image": "",
+    "field_member_order": 1
+  },
+  "createdAt": "2026-03-16T00:00:00.000Z",
+  "updatedAt": "2026-03-16T00:00:00.000Z"
+}

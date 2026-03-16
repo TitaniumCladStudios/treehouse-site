@@ -1,12 +1,12 @@
 {
   "id": "item_highlight_2",
   "schemaSlug": "experience_highlights",
-  "title": "Elegant Details",
+  "title": "Vintage Details",
   "fields": {
-    "field_highlight_title": "Elegant Details",
-    "field_highlight_description": "Refined touches that create an atmosphere of sophistication",
+    "field_highlight_title": "Vintage Details",
+    "field_highlight_description": "Every element designed to transport you back in time",
     "field_highlight_icon": "sparkles"
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-03-16T00:00:00.000Z"
 }
