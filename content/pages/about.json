@@ -66,7 +66,7 @@
       "id": "nav_links",
       "label": "Navigation Links",
       "type": "contentReference",
-      "value": "item_nav_1,item_nav_2,item_nav_3,item_nav_4,item_nav_5",
+      "value": "item_nav_1,item_nav_2,item_nav_6,item_nav_3,item_nav_4,item_nav_5",
       "referenceSchema": "nav_links",
       "multiple": true
     }

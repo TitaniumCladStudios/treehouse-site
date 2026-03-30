@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_11",
+  "schemaSlug": "gallery_images",
+  "title": "Wedding Party Under Banyan",
+  "fields": {
+    "field_gallery_image": "/uploads/1774891608016_wedding_party_banyan.webp",
+    "field_gallery_alt": "Wedding party group photo beneath the banyan tree at The Tree House",
+    "field_gallery_span": "2"
+  },
+  "createdAt": "2026-03-30T00:00:00.000Z",
+  "updatedAt": "2026-03-30T00:00:00.000Z"
+}

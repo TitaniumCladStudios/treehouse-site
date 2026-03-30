@@ -136,7 +136,7 @@
       "id": "gallery",
       "label": "Gallery",
       "type": "contentReference",
-      "value": "item_gallery_1,item_gallery_2,item_gallery_3,item_gallery_4,item_gallery_5,item_gallery_6,item_gallery_7,item_gallery_8,item_gallery_9,item_gallery_10",
+      "value": "item_gallery_1,item_gallery_2,item_gallery_3,item_gallery_4,item_gallery_5,item_gallery_6,item_gallery_7,item_gallery_8,item_gallery_9,item_gallery_10,item_gallery_11,item_gallery_12,item_gallery_13,item_gallery_14,item_gallery_15",
       "referenceSchema": "gallery_images",
       "multiple": true
     },
@@ -180,7 +180,7 @@
       "id": "nav_links",
       "label": "Navigation Links",
       "type": "contentReference",
-      "value": "item_nav_1,item_nav_2,item_nav_3,item_nav_4,item_nav_5",
+      "value": "item_nav_1,item_nav_2,item_nav_6,item_nav_3,item_nav_4,item_nav_5",
       "referenceSchema": "nav_links",
       "multiple": true
     }

@@ -1,0 +1,12 @@
+{
+  "id": "item_nav_6",
+  "schemaSlug": "nav_links",
+  "title": "Menu",
+  "fields": {
+    "field_nav_label": "MENU",
+    "field_nav_anchor": "/menu",
+    "field_nav_order": 3
+  },
+  "createdAt": "2026-03-30T00:00:00.000Z",
+  "updatedAt": "2026-03-30T00:00:00.000Z"
+}

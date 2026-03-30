@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_14",
+  "schemaSlug": "gallery_images",
+  "title": "Bride Portrait",
+  "fields": {
+    "field_gallery_image": "/uploads/1774891608016_bride_portrait.webp",
+    "field_gallery_alt": "Bride portrait in the bridal suite",
+    "field_gallery_span": "1"
+  },
+  "createdAt": "2026-03-30T00:00:00.000Z",
+  "updatedAt": "2026-03-30T00:00:00.000Z"
+}

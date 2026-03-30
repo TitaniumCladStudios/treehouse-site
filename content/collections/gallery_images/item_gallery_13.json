@@ -1,0 +1,12 @@
+{
+  "id": "item_gallery_13",
+  "schemaSlug": "gallery_images",
+  "title": "Bridesmaids Getting Ready",
+  "fields": {
+    "field_gallery_image": "/uploads/1774891608016_bridesmaids_getting_ready.webp",
+    "field_gallery_alt": "Bridesmaids toasting champagne in the bridal suite at The Tree House",
+    "field_gallery_span": "2"
+  },
+  "createdAt": "2026-03-30T00:00:00.000Z",
+  "updatedAt": "2026-03-30T00:00:00.000Z"
+}

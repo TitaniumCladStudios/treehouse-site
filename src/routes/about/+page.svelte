@@ -20,6 +20,7 @@
 				role: m.fields?.role || '',
 				bio: m.fields?.bio || '',
 				image: m.fields?.image || '',
+				imageRotation: parseInt(m.fields?.image_rotation) || 0,
 				order: parseInt(m.fields?.order) || 0
 			}))
 			.sort((a: any, b: any) => a.order - b.order)
@@ -100,6 +101,7 @@
 									src={member.image}
 									alt={member.name}
 									class="w-24 h-24 rounded-full object-cover mx-auto mb-6"
+									style={member.imageRotation ? `transform: rotate(${member.imageRotation}deg)` : ''}
 								/>
 							{:else}
 								<div class="w-24 h-24 rounded-full bg-stone-200 flex items-center justify-center mx-auto mb-6">

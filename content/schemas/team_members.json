@@ -37,6 +37,15 @@
       "defaultValue": ""
     },
     {
+      "id": "field_member_image_rotation",
+      "label": "Image Rotation",
+      "type": "select",
+      "required": false,
+      "helpText": "Rotate the photo in 90° increments",
+      "defaultValue": "0",
+      "options": ["0", "90", "180", "270"]
+    },
+    {
       "id": "field_member_order",
       "label": "Order",
       "type": "number",
