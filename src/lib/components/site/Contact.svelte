@@ -108,6 +108,7 @@
 			<form
 				name="contact"
 				method="POST"
+				action="/thank-you"
 				data-netlify="true"
 				netlify-honeypot="bot-field"
 				class="space-y-6"
