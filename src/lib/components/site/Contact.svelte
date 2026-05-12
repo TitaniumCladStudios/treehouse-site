@@ -127,7 +127,7 @@
 						name="name"
 						required
 						bind:value={formData.name}
-						class="w-full px-4 py-3 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
+						class="w-full px-4 py-3 bg-white text-stone-900 placeholder:text-stone-400 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
 					/>
 				</div>
 
@@ -139,7 +139,7 @@
 						name="email"
 						required
 						bind:value={formData.email}
-						class="w-full px-4 py-3 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
+						class="w-full px-4 py-3 bg-white text-stone-900 placeholder:text-stone-400 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
 					/>
 				</div>
 
@@ -150,7 +150,7 @@
 						id="phone"
 						name="phone"
 						bind:value={formData.phone}
-						class="w-full px-4 py-3 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
+						class="w-full px-4 py-3 bg-white text-stone-900 placeholder:text-stone-400 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
 					/>
 				</div>
 
@@ -161,7 +161,7 @@
 						id="eventDate"
 						name="eventDate"
 						bind:value={formData.eventDate}
-						class="w-full px-4 py-3 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
+						class="w-full px-4 py-3 bg-white text-stone-900 placeholder:text-stone-400 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors"
 					/>
 				</div>
 
@@ -174,7 +174,7 @@
 						name="message"
 						rows="6"
 						bind:value={formData.message}
-						class="w-full px-4 py-3 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors resize-none"
+						class="w-full px-4 py-3 bg-white text-stone-900 placeholder:text-stone-400 border border-stone-300 focus:border-stone-500 focus:outline-none transition-colors resize-none"
 					></textarea>
 				</div>
 
