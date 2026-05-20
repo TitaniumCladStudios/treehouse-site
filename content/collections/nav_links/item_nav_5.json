@@ -4,9 +4,9 @@
   "title": "Contact",
   "fields": {
     "field_nav_label": "CONTACT",
-    "field_nav_anchor": "#contact",
-    "field_nav_order": 6
+    "field_nav_anchor": "/contact",
+    "field_nav_order": 8
   },
   "createdAt": "2026-01-18T00:00:00.000Z",
-  "updatedAt": "2026-01-18T00:00:00.000Z"
+  "updatedAt": "2026-05-20T00:00:00.000Z"
 }

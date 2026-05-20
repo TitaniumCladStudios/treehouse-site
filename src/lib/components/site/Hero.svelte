@@ -85,7 +85,7 @@
 			</p>
 			<div class="pt-8">
 				<a
-					href="#contact"
+					href="/request-a-tour"
 					class="inline-block px-10 py-4 bg-white text-stone-800 tracking-wider hover:bg-stone-100 transition-all"
 				>
 					{ctaText}

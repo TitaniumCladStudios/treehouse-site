@@ -75,7 +75,7 @@
 					</a>
 				{/each}
 				<a
-					href={isHomePage ? '#contact' : '/#contact'}
+					href="/pricing"
 					class="flex items-center gap-2 px-6 py-2 text-sm tracking-wider transition-colors {isScrolled
 						? 'bg-stone-800 text-white hover:bg-stone-700'
 						: 'bg-white text-stone-800 hover:bg-stone-100'}"
@@ -114,7 +114,7 @@
 					</a>
 				{/each}
 				<a
-					href={isHomePage ? '#contact' : '/#contact'}
+					href="/pricing"
 					class="flex items-center gap-2 px-6 py-3 bg-stone-800 text-white text-sm tracking-wider justify-center"
 					onclick={closeMobileMenu}
 				>

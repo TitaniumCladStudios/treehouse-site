@@ -6,8 +6,7 @@
 		Welcome,
 		VenueFeatures,
 		Experience,
-		Gallery,
-		Contact
+		Gallery
 	} from '$lib/components/site';
 
 	let { data }: { data: PageData } = $props();
@@ -115,18 +114,16 @@
 		images={galleryFormatted}
 	/>
 
-	<Contact
-		label={getField('contact_label')}
-		heading={getField('contact_heading')}
-		description={getField('contact_description')}
-		tourHeading={getField('tour_heading')}
-		tourDescription={getField('tour_description')}
-		submitText={getField('form_submit_text')}
-		siteName={data.settings?.siteName || 'The Tree House'}
-		address={data.settings?.address || '12345 Palm Drive, Fort Myers, Florida'}
-		phone={data.settings?.phone || '(239) 555-0123'}
-		hours={data.settings?.hours || 'Mon - Sat: 9AM - 6PM'}
-		email={data.settings?.adminEmail || 'hello@thetreehouse.com'}
-		eventsEmail={data.settings?.eventsEmail || 'events@thetreehouse.com'}
-	/>
+	<!-- Footer -->
+	<footer class="py-12 bg-stone-50 border-t border-stone-200">
+		<div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+			<p class="font-cursive text-2xl text-stone-800 mb-4">
+				{data.settings?.siteName || 'The Tree House'}
+			</p>
+			<p class="text-sm text-stone-500">
+				&copy; {new Date().getFullYear()}
+				{data.settings?.siteName || 'The Tree House'}. All rights reserved.
+			</p>
+		</div>
+	</footer>
 {/if}
