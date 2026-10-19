@@ -1,0 +1,16 @@
+{
+  "id": "item_vendor_2",
+  "schemaSlug": "dream_team",
+  "title": "Platinum Entertainment",
+  "fields": {
+    "field_vendor_role": "DJ · Platinum Entertainment",
+    "field_vendor_name": "DJ E3 Esteban & DJ Chris",
+    "field_vendor_line": "Your DJ knows our property and our timeline.",
+    "field_vendor_link_label": "@dj_e3_ on Instagram",
+    "field_vendor_link_url": "https://www.instagram.com/dj_e3_/",
+    "field_vendor_image": "/uploads/1773660192403_dance_floor_lights.webp",
+    "field_vendor_order": 2
+  },
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

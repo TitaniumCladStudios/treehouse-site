@@ -1,0 +1,66 @@
+{
+  "slug": "dream_team",
+  "name": "Dream Team Vendors",
+  "description": "All-inclusive vendor partners shown on the Dream Team page",
+  "icon": "HeartHandshake",
+  "fields": [
+    {
+      "id": "field_vendor_role",
+      "label": "Role",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Small label above the name (e.g. Catering, Photography)",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_vendor_name",
+      "label": "Name",
+      "type": "shortText",
+      "required": true,
+      "helpText": "Vendor or business name",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_vendor_line",
+      "label": "Line",
+      "type": "longText",
+      "required": true,
+      "helpText": "One sentence about what they know or do",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_vendor_link_label",
+      "label": "Link Label",
+      "type": "shortText",
+      "required": false,
+      "helpText": "Text shown for the link (e.g. raynz-catering.com). Leave blank for no link.",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_vendor_link_url",
+      "label": "Link URL",
+      "type": "shortText",
+      "required": false,
+      "helpText": "Full URL including https://. Opens in a new tab. Leave blank for no link.",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_vendor_image",
+      "label": "Image",
+      "type": "image",
+      "required": false,
+      "helpText": "Photo for this vendor's card",
+      "defaultValue": ""
+    },
+    {
+      "id": "field_vendor_order",
+      "label": "Order",
+      "type": "number",
+      "required": true,
+      "helpText": "Display order (lower numbers appear first)",
+      "defaultValue": "0"
+    }
+  ],
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

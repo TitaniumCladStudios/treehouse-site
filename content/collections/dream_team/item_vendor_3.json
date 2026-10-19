@@ -1,0 +1,16 @@
+{
+  "id": "item_vendor_3",
+  "schemaSlug": "dream_team",
+  "title": "Raynz Catering Company",
+  "fields": {
+    "field_vendor_role": "Catering",
+    "field_vendor_name": "Raynz Catering Company",
+    "field_vendor_line": "Your caterer knows our kitchen and how we serve our couples.",
+    "field_vendor_link_label": "raynz-catering.com",
+    "field_vendor_link_url": "https://raynz-catering.com/",
+    "field_vendor_image": "/uploads/1773660192403_reception_table_setting.webp",
+    "field_vendor_order": 3
+  },
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

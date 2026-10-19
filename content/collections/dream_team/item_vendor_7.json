@@ -1,0 +1,16 @@
+{
+  "id": "item_vendor_7",
+  "schemaSlug": "dream_team",
+  "title": "Creative Events",
+  "fields": {
+    "field_vendor_role": "Rentals & Linens",
+    "field_vendor_name": "Creative Events",
+    "field_vendor_line": "Rentals, linens and more.",
+    "field_vendor_link_label": "creativeevents1.com",
+    "field_vendor_link_url": "http://www.creativeevents1.com/",
+    "field_vendor_image": "/uploads/1773660192403_chandeliers_overhead.webp",
+    "field_vendor_order": 7
+  },
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

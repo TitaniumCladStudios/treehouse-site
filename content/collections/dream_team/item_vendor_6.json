@@ -1,0 +1,16 @@
+{
+  "id": "item_vendor_6",
+  "schemaSlug": "dream_team",
+  "title": "Alpha Weddings",
+  "fields": {
+    "field_vendor_role": "Officiant",
+    "field_vendor_name": "Alpha Weddings",
+    "field_vendor_line": "Your officiant understands the flow of a Tree House ceremony.",
+    "field_vendor_link_label": "alphaweddings.us",
+    "field_vendor_link_url": "https://alphaweddings.us/",
+    "field_vendor_image": "/uploads/1773660192403_banyan_ceremony_setup.webp",
+    "field_vendor_order": 6
+  },
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

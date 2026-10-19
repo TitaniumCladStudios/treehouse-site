@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "slug": "dream-team",
+    "title": "Dream Team Page",
+    "createdAt": "2026-10-19T00:00:00.000Z",
+    "updatedAt": "2026-10-19T00:00:00.000Z"
+  },
+  "fields": [
+    {
+      "id": "hero_eyebrow",
+      "label": "Hero Eyebrow",
+      "type": "shortText",
+      "value": "Vintage · Historic · All-Inclusive"
+    },
+    {
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "type": "shortText",
+      "value": "The Dream Team — more than vendors, they’re"
+    },
+    {
+      "id": "hero_heading_emphasis",
+      "label": "Hero Heading Emphasis",
+      "type": "shortText",
+      "value": "family."
+    },
+    {
+      "id": "hero_body",
+      "label": "Hero Body",
+      "type": "longText",
+      "value": "When you choose The Tree House, you’re not just choosing a beautiful wedding venue. You’re choosing a team of people who have been creating unforgettable weddings together, with us, since the very beginning."
+    },
+    {
+      "id": "hero_image",
+      "label": "Hero Image",
+      "type": "image",
+      "value": "/uploads/1774891608016_wedding_party_banyan.webp"
+    },
+    {
+      "id": "story_lead",
+      "label": "Story Lead",
+      "type": "longText",
+      "value": "Over the years, our all-inclusive vendor partners have become so much more than businesses we work with. They have become part of The Tree House family."
+    },
+    {
+      "id": "story_body",
+      "label": "Story Body",
+      "type": "longText",
+      "value": "We’ve celebrated together, worked through the unexpected together, watched hundreds of couples say “I do,” and built a team that knows exactly how we want every Tree House wedding to feel."
+    },
+    {
+      "id": "team_heading",
+      "label": "Team Heading",
+      "type": "shortText",
+      "value": "This is our Dream Team."
+    },
+    {
+      "id": "team_intro",
+      "label": "Team Intro",
+      "type": "longText",
+      "value": "From the moment you walk through our doors, our team works together behind the scenes so you can actually enjoy your wedding day."
+    },
+    {
+      "id": "vendors",
+      "label": "Vendors",
+      "type": "contentReference",
+      "value": "item_vendor_1,item_vendor_2,item_vendor_3,item_vendor_4,item_vendor_5,item_vendor_6,item_vendor_7",
+      "referenceSchema": "dream_team",
+      "multiple": true
+    },
+    {
+      "id": "oneteam_quote",
+      "label": "One Team Quote",
+      "type": "longText",
+      "value": "Our entire team works together — not as a collection of separate vendors, but as"
+    },
+    {
+      "id": "oneteam_quote_emphasis",
+      "label": "One Team Quote Emphasis",
+      "type": "shortText",
+      "value": "one team."
+    },
+    {
+      "id": "oneteam_tag",
+      "label": "One Team Tag",
+      "type": "shortText",
+      "value": "That’s the difference."
+    },
+    {
+      "id": "done_heading",
+      "label": "Done For You Heading",
+      "type": "shortText",
+      "value": "We’ve already done that part for you."
+    },
+    {
+      "id": "done_body",
+      "label": "Done For You Body",
+      "type": "longText",
+      "value": "We carefully choose the professionals included in our all-inclusive packages because we believe your wedding day should feel organized, personal, beautiful and stress-free."
+    },
+    {
+      "id": "done_label",
+      "label": "Done For You Label",
+      "type": "shortText",
+      "value": "You don’t have to spend months"
+    },
+    {
+      "id": "done_items",
+      "label": "Done For You List",
+      "type": "longText",
+      "value": "Searching for vendors\nComparing contracts\nCoordinating arrival times\nWorrying whether everyone will communicate\nWondering if the people you hired will work well together"
+    },
+    {
+      "id": "trust_body",
+      "label": "Trust Body",
+      "type": "longText",
+      "value": "Perhaps most importantly, these are vendors we trust. They’re invested in your wedding because they’re invested in The Tree House."
+    },
+    {
+      "id": "trust_lines",
+      "label": "Trust Lines",
+      "type": "longText",
+      "value": "A beautiful venue is important.\nA great package is important.\nBut the people who bring it all together are what make the experience unforgettable."
+    },
+    {
+      "id": "closing_body",
+      "label": "Closing Body",
+      "type": "longText",
+      "value": "Our all-inclusive Dream Team is one of the things that makes The Tree House truly different."
+    },
+    {
+      "id": "closing_heading",
+      "label": "Closing Heading",
+      "type": "shortText",
+      "value": "One venue. One incredible team. One beautifully coordinated experience."
+    },
+    {
+      "id": "closing_body_2",
+      "label": "Closing Body 2",
+      "type": "longText",
+      "value": "And when your wedding day comes, you’re not surrounded by strangers you hired separately — you’re surrounded by family."
+    },
+    {
+      "id": "cta_primary_text",
+      "label": "Primary Button Text",
+      "type": "shortText",
+      "value": "Schedule a Visit"
+    },
+    {
+      "id": "cta_primary_href",
+      "label": "Primary Button Link",
+      "type": "shortText",
+      "value": "/request-a-tour"
+    },
+    {
+      "id": "cta_secondary_text",
+      "label": "Secondary Button Text",
+      "type": "shortText",
+      "value": "Pricing Brochure"
+    },
+    {
+      "id": "cta_secondary_href",
+      "label": "Secondary Button Link",
+      "type": "shortText",
+      "value": "/pricing"
+    },
+    {
+      "id": "meta_description",
+      "label": "Meta Description",
+      "type": "longText",
+      "value": "Meet the all-inclusive vendor partners behind every Tree House wedding — coordinator, DJ, catering, cake, photography, officiant and rentals, working together as one team."
+    }
+  ]
+}

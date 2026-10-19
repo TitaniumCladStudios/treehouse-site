@@ -1,0 +1,16 @@
+{
+  "id": "item_vendor_4",
+  "schemaSlug": "dream_team",
+  "title": "LadyCakes Bakery",
+  "fields": {
+    "field_vendor_role": "Cake",
+    "field_vendor_name": "LadyCakes Bakery",
+    "field_vendor_line": "Your baker knows exactly where and how we display your cake.",
+    "field_vendor_link_label": "iloveladycakes.com",
+    "field_vendor_link_url": "https://iloveladycakes.com/",
+    "field_vendor_image": "/uploads/1774891608016_cake_cutting.webp",
+    "field_vendor_order": 4
+  },
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

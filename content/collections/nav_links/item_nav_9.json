@@ -1,0 +1,12 @@
+{
+  "id": "item_nav_9",
+  "schemaSlug": "nav_links",
+  "title": "Dream Team",
+  "fields": {
+    "field_nav_label": "DREAM TEAM",
+    "field_nav_anchor": "/dream-team",
+    "field_nav_order": 3.5
+  },
+  "createdAt": "2026-10-19T00:00:00.000Z",
+  "updatedAt": "2026-10-19T00:00:00.000Z"
+}

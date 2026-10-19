@@ -12,12 +12,17 @@
 	interface Props {
 		siteName: string;
 		navLinks: NavLink[];
+		/** Set on pages with a light hero, so nav text stays legible before scroll */
+		lightBackground?: boolean;
 	}
 
-	let { siteName, navLinks }: Props = $props();
+	let { siteName, navLinks, lightBackground = false }: Props = $props();
 
 	let isScrolled = $state(false);
 	let isMobileMenuOpen = $state(false);
+
+	// Dark text is needed once the white bar appears, and on light-hero pages from the start
+	let useDarkText = $derived(isScrolled || lightBackground);
 
 	// Sort nav links by order
 	let sortedLinks = $derived([...navLinks].sort((a, b) => a.order - b.order));
@@ -57,7 +62,7 @@
 			<!-- Logo -->
 			<a
 				href={isHomePage ? '#home' : '/'}
-				class="font-cursive text-2xl {isScrolled ? 'text-stone-800' : 'text-white'}"
+				class="font-cursive text-2xl {useDarkText ? 'text-stone-800' : 'text-white'}"
 			>
 				{siteName}
 			</a>
@@ -67,7 +72,7 @@
 				{#each sortedLinks as link}
 					<a
 						href={getHref(link.anchor)}
-						class="text-sm tracking-wider transition-colors {isScrolled
+						class="text-sm tracking-wider transition-colors {useDarkText
 							? 'text-stone-600 hover:text-stone-800'
 							: 'text-white/90 hover:text-white'}"
 					>
@@ -76,7 +81,7 @@
 				{/each}
 				<a
 					href="/pricing"
-					class="flex items-center gap-2 px-6 py-2 text-sm tracking-wider transition-colors {isScrolled
+					class="flex items-center gap-2 px-6 py-2 text-sm tracking-wider transition-colors {useDarkText
 						? 'bg-stone-800 text-white hover:bg-stone-700'
 						: 'bg-white text-stone-800 hover:bg-stone-100'}"
 				>
@@ -87,7 +92,7 @@
 
 			<!-- Mobile Menu Button -->
 			<button
-				class="xl:hidden p-2 {isScrolled ? 'text-stone-800' : 'text-white'}"
+				class="xl:hidden p-2 {useDarkText ? 'text-stone-800' : 'text-white'}"
 				onclick={() => (isMobileMenuOpen = !isMobileMenuOpen)}
 				aria-label="Toggle menu"
 			>
